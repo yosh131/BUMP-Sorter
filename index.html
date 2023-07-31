@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>楽曲リスト</title>
+    <script src="main.js"></script>
+</head>
+
+<body>
+    <h1>楽曲リスト</h1>
+    <div id="songList">
+        <!-- JavaScriptで楽曲リストを生成するのでここには何も書かない -->
+    </div>
+    <button onclick="selectAll()">全選択</button>
+    <button onclick="deselectAll()">全選択解除</button>
+    <br>
+    <button onclick="saveSelection()">選択を保存</button>
+    <div id="selectedSongs">
+        <h2>選択された楽曲:</h2>
+        <ul id="selectedList">
+        </ul>
+    </div>
+</body>
+
+</html>
