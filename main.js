@@ -29,20 +29,37 @@ function parseCSV(csv) {
 
     return records;
 }
+
 function generateSongList() {
     const songListDiv = document.getElementById('songList');
+    let currentAlbum = '';
+    const columns = 3;
+
     songList.forEach((song) => {
+        if (song.album !== currentAlbum) {
+            if (currentAlbum !== '') {
+                // 前のアルバムが終わったら改行
+                songListDiv.appendChild(document.createElement('br'));
+            }
+
+            const albumHeader = document.createElement('h3');
+            albumHeader.textContent = song.album;
+            songListDiv.appendChild(albumHeader);
+            currentAlbum = song.album;
+        }
+
         const label = document.createElement('label');
         const checkbox = document.createElement('input');
         checkbox.type = 'checkbox';
         checkbox.name = 'song';
-        checkbox.value = song.title;
+        checkbox.value = song.id;
         label.appendChild(checkbox);
         label.append(` ${song.title}`);
         label.appendChild(document.createElement('br'));
         songListDiv.appendChild(label);
     });
 }
+
 
 function selectAll() {
     const checkboxes = document.getElementsByName('song');
@@ -66,7 +83,10 @@ function saveSelection() {
             selectedSongs.push(checkbox.value);
         }
     });
-    updateSelectedList();
+    // updateSelectedList();
+    // クエリパラメータに選択された曲リストを渡してselected_songs.htmlに遷移する
+    const queryString = `?selectedList=${encodeURIComponent(JSON.stringify(selectedSongs))}`;
+    window.location.href = `selected_songs.html${queryString}`;
 }
 
 function updateSelectedList() {

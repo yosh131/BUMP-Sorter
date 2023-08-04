@@ -1,33 +1,142 @@
-id,title,album,,,,,,,,,
-1,ガラスのブルース,FLAME VEIN,,,,,,,,,
-2,くだらない唄,FLAME VEIN,,,,,,,,,
-3,アルエ,FLAME VEIN,,,,,,,,,
-4,リトルブレイバー,FLAME VEIN,,,,,,,,,
-5,ノーヒットノーラン,FLAME VEIN,,,,,,,,,
-6,とっておきの唄,FLAME VEIN,,,,,,,,,
-7,ナイフ,FLAME VEIN,,,,,,,,,
-8,バトルクライ,FLAME VEIN,,,,,,,,,
-9,Opening,THE LIVING DEAD,,,,,,,,,
-10,グングニル,THE LIVING DEAD,,,,,,,,,
-11,ベストピクチャー,THE LIVING DEAD,,,,,,,,,
-12,続・くだらない唄,THE LIVING DEAD,,,,,,,,,
-13,ランプ,THE LIVING DEAD,,,,,,,,,
-14,K,THE LIVING DEAD,,,,,,,,,
-15,リリィ,THE LIVING DEAD,,,,,,,,,
-16,Ever lasting lie,THE LIVING DEAD,,,,,,,,,
-17,グロリアスレボリューション,THE LIVING DEAD,,,,,,,,,
-18,Ending,THE LIVING DEAD,,,,,,,,,
-19,Stage of the ground,jupiter,,,,,,,,,
-20,天体観測,jupiter,,,,,,,,,
-21,Title of mine,jupiter,,,,,,,,,
-22,キャッチボール,jupiter,,,,,,,,,
-23,ハルジオン,jupiter,,,,,,,,,
-24,ベンチとコーヒー,jupiter,,,,,,,,,
-25,メロディーフラッグ,jupiter,,,,,,,,,
-26,ベル,jupiter,,,,,,,,,
-27,ダイヤモンド,jupiter,,,,,,,,,
-28,ダンデライオン,jupiter,,,,,,,,,
-29,スノースマイル,「スノースマイル」,,,,,,,,,
-30,ホリデイ,「スノースマイル」,,,,,,,,,
-31,ロストマン,「ロストマン/sailing day」,,,,,,,,,
-32,sailing day,「ロストマン/sailing day」,,,,,,,,,
+id,title,album,dummy
+1,ガラスのブルース,「FLAME VEIN」,dummy
+2,くだらない唄,「FLAME VEIN」,dummy
+3,アルエ,「FLAME VEIN」,dummy
+4,リトルブレイバー,「FLAME VEIN」,dummy
+5,ノーヒットノーラン,「FLAME VEIN」,dummy
+6,とっておきの唄,「FLAME VEIN」,dummy
+7,ナイフ,「FLAME VEIN」,dummy
+8,バトルクライ,「FLAME VEIN」,dummy
+9,Opening,「THE LIVING DEAD」,dummy
+10,グングニル,「THE LIVING DEAD」,dummy
+11,ベストビクチャー,「THE LIVING DEAD」,dummy
+12,続・くだらない唄,「THE LIVING DEAD」,dummy
+13,ランプ,「THE LIVING DEAD」,dummy
+14,K,「THE LIVING DEAD」,dummy
+15,リリィ,「THE LIVING DEAD」,dummy
+16,Ever lasting lie,「THE LIVING DEAD」,dummy
+17,グロリアスレボリューション,「THE LIVING DEAD」,dummy
+18,Ending,「THE LIVING DEAD」,dummy
+19,Stage Of The Ground,「jupiter」,dummy
+20,天体観測,「jupiter」,dummy
+21,Title Of Mine,「jupiter」,dummy
+22,キャッチボール,「jupiter」,dummy
+23,ハルジオン,「jupiter」,dummy
+24,ベンチとコーヒー,「jupiter」,dummy
+25,メロディーフラッグ,「jupiter」,dummy
+26,ベル,「jupiter」,dummy
+27,ダイヤモンド,「jupiter」,dummy
+28,ダンデライオン,「jupiter」,dummy
+29,asgard,「ユグドラシル」,dummy
+30,オンリー ロンリー グローリー,「ユグドラシル」,dummy
+31,乗車券,「ユグドラシル」,dummy
+32,ギルド,「ユグドラシル」,dummy
+33,embrace,「ユグドラシル」,dummy
+34,sailing day,「ユグドラシル」,dummy
+35,同じドアをくぐれたら,「ユグドラシル」,dummy
+36,車輪の唄,「ユグドラシル」,dummy
+37,スノースマイル,「ユグドラシル」,dummy
+38,レム,「ユグドラシル」,dummy
+39,fire sign,「ユグドラシル」,dummy
+40,太陽,「ユグドラシル」,dummy
+41,ロストマン,「ユグドラシル」,dummy
+42,midgard,「ユグドラシル」,dummy
+43,voyager,「orbital period」,dummy
+44,星の鳥,「orbital period」,dummy
+45,メーデー,「orbital period」,dummy
+46,才脳人応援歌,「orbital period」,dummy
+47,プラネタリウム,「orbital period」,dummy
+48,supernova,「orbital period」,dummy
+49,ハンマーソングと痛みの塔,「orbital period」,dummy
+50,時空かくれんぼ,「orbital period」,dummy
+51,かさぶたぶたぶ,「orbital period」,dummy
+52,花の名,「orbital period」,dummy
+53,ひとりごと,「orbital period」,dummy
+54,飴玉の唄,「orbital period」,dummy
+55,星の鳥 reprise,「orbital period」,dummy
+56,カルマ,「orbital period」,dummy
+57,arrows,「orbital period」,dummy
+58,涙のふるさと,「orbital period」,dummy
+59,flyby,「orbital period」,dummy
+60,ラフ・メイカー,「Present from you」,dummy
+61,バイバイサンキュー,「Present from you」,dummy
+62,彼女と星の椅子,「Present from you」,dummy
+63,ホリデイ,「Present from you」,dummy
+64,Ever lasting lie（アコースティックVer）,「Present from you」,dummy
+65,睡眠時間,「Present from you」,dummy
+66,夢の飼い主,「Present from you」,dummy
+67,スノースマイル～ringing ver～,「Present from you」,dummy
+68,銀河鉄道,「Present from you」,dummy
+69,真っ赤な空を見ただろうか,「Present from you」,dummy
+70,東京賛歌,「Present from you」,dummy
+71,ガラスのブルース（28 years round）,「Present from you」,dummy
+72,プレゼント,「Present from you」,dummy
+73,三ツ星カルテット,「COSMONAUT」,dummy
+74,R.I.P.,「COSMONAUT」,dummy
+75,ウエザーリポート,「COSMONAUT」,dummy
+76,分別奮闘記,「COSMONAUT」,dummy
+77,モーターサイクル,「COSMONAUT」,dummy
+78,透明飛行船,「COSMONAUT」,dummy
+79,魔法の料理～君から君へ～,「COSMONAUT」,dummy
+80,HAPPY,「COSMONAUT」,dummy
+81,６６号線,「COSMONAUT」,dummy
+82,セントエルモの火,「COSMONAUT」,dummy
+83,angel fall,「COSMONAUT」,dummy
+84,宇宙飛行士への手紙,「COSMONAUT」,dummy
+85,イノセント,「COSMONAUT」,dummy
+86,beautiful glider,「COSMONAUT」,dummy
+87,WILL,「RAY」,dummy
+88,虹を待つ人,「RAY」,dummy
+89,ray,「RAY」,dummy
+90,サザンクロス,「RAY」,dummy
+91,ラストワン,「RAY」,dummy
+92,morning glow,「RAY」,dummy
+93,ゼロ,「RAY」,dummy
+94,トーチ,「RAY」,dummy
+95,Smile,「RAY」,dummy
+96,firefly,「RAY」,dummy
+97,white note,「RAY」,dummy
+98,友達の唄,「RAY」,dummy
+99,(please) forgive,「RAY」,dummy
+100,グッドラック,「RAY」,dummy
+101,GO,「Butterflies」,dummy
+102,Hello，world!,「Butterflies」,dummy
+103,Butterfly,「Butterflies」,dummy
+104,流星群,「Butterflies」,dummy
+105,宝石になった日,「Butterflies」,dummy
+106,コロニー,「Butterflies」,dummy
+107,パレード,「Butterflies」,dummy
+108,大我慢大会,「Butterflies」,dummy
+109,孤独の合唱,「Butterflies」,dummy
+110,You were here,「Butterflies」,dummy
+111,ファイター,「Butterflies」,dummy
+112,aurora arc,「aurora arc」,dummy
+113,月虹,「aurora arc」,dummy
+114,aurora,「aurora arc」,dummy
+115,記念撮影,「aurora arc」,dummy
+116,ジャングルジム,「aurora arc」,dummy
+117,リボン,「aurora arc」,dummy
+118,シリウス,「aurora arc」,dummy
+119,アリア,「aurora arc」,dummy
+120,話がしたいよ,「aurora arc」,dummy
+121,アンサー,「aurora arc」,dummy
+122,望遠のマーチ,「aurora arc」,dummy
+123,Spica,「aurora arc」,dummy
+124,新世界,「aurora arc」,dummy
+125,流れ星の正体,「aurora arc」,dummy
+126,Merry Christmas,シングル限定/その他,dummy
+127,pinkie,シングル限定/その他,dummy
+128,キャラバン,シングル限定/その他,dummy
+129,good friends,シングル限定/その他,dummy
+130,歩く幽霊,シングル限定/その他,dummy
+131,ディアマン,シングル限定/その他,dummy
+132,ほんとのほんと,シングル限定/その他,dummy
+133,Gravity,シングル限定/その他,dummy
+134,アカシア,シングル限定/その他,dummy
+135,Flare,シングル限定/その他,dummy
+136,なないろ,シングル限定/その他,dummy
+137,Small world,シングル限定/その他,dummy
+138,クロノスタシス,シングル限定/その他,dummy
+139,SOUVENIR,シングル限定/その他,dummy
+140,窓の中から,シングル限定/その他,dummy
+141,木漏れ日と一緒に,シングル限定/その他,dummy
