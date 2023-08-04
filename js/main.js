@@ -1,7 +1,7 @@
 let selectedSongs = [];
 let songList = [];
 
-fetch('songs.csv')
+fetch('../songdata/songs.csv')
     .then(response => response.arrayBuffer())
     .then(buffer => {
         const decoder = new TextDecoder('Shift_JIS');

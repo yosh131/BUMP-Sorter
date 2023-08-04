@@ -2,25 +2,41 @@
 <html>
 
 <head>
-    <title>楽曲リスト</title>
-    <link rel="stylesheet" href="./styles.css">
-    <script src="./main.js"></script>
+    <title>BUMP-Sorter</title>
+    <link rel="stylesheet" href="./css/styles.css">
+    <script src="./js/main.js"></script>
 </head>
 
 <body>
-    <h1>楽曲リスト</h1>
+    <h1>BUMP-Sorter</h1>
+    <div id="pageDiscription">
+        <h2>
+            What's BUMP-Sorter?
+        </h2>
+        <p>
+            BUMP OF CHICKEN
+            の楽曲ソートを行うページです。隠しトラックを除いた全楽曲が対象です（もしないものがあれば教えてください）。表示された楽曲のどちらが好きかを選んでいくと、好きな曲ランキングが完成します。ただし、全楽曲を対象として並び変えると非常に時間がかかるため、最初にある程度好きな曲を選択してもらい、その後にソートを開始する方式としています。
+            <br>(最終更新:2023.08.04)
+        </p>
+    </div>
+
+    <div id="instruction">
+        <h3>
+            ①ある程度好きな曲を選んでください（何曲でもOKです）
+        </h3>
+    </div>
     <div id="songList">
         <!-- JavaScriptで楽曲リストを生成するのでここには何も書かない -->
     </div>
     <button onclick="selectAll()">全選択</button>
     <button onclick="deselectAll()">全選択解除</button>
     <br>
-    <button onclick="saveSelection()">選択を保存</button>
-    <div id="selectedSongs">
-        <h2>選択された楽曲:</h2>
+    <button onclick="saveSelection()">選択を完了</button>
+    <!-- <div id="selectedSongs"> -->
+        <!-- <h2>選択された楽曲:</h2>
         <ul id="selectedList">
-        </ul>
-    </div>
+        </ul> -->
+    <!-- </div> -->
 </body>
 
 </html>
