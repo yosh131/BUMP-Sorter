@@ -1,7 +1,6 @@
 let selectedSongs = [];
 let songList = [];
 
-// fetch('../songdata/songs.csv')
 fetch('songdata/songs.csv')
     .then(response => response.arrayBuffer())
     .then(buffer => {
@@ -25,6 +24,7 @@ function parseCSV(csv) {
         for (let j = 0; j < headers.length; j++) {
             record[headers[j]] = line[j];
         }
+        record["checked"] = false;
         records.push(record);
     }
 
@@ -36,7 +36,7 @@ function generateSongList() {
     let currentAlbum = '';
     const columns = 3;
 
-    songList.forEach((song) => {
+    songList.forEach((song, index) => {
         if (song.album !== currentAlbum) {
             if (currentAlbum !== '') {
                 // 前のアルバムが終わったら改行
@@ -54,19 +54,66 @@ function generateSongList() {
         checkbox.type = 'checkbox';
         checkbox.name = 'song';
         checkbox.value = song.id;
+        checkbox.checked = false;
+        checkbox.addEventListener('change', () => handleCheckboxChange(index));
+
         label.appendChild(checkbox);
         label.append(` ${song.title}`);
         label.appendChild(document.createElement('br'));
         songListDiv.appendChild(label);
     });
+    updateCheckedCount();
+
 }
 
 
+function saveSelection() {
+    selectedSongs = [];
+    const checkboxes = document.getElementsByName('song');
+    checkboxes.forEach((checkbox) => {
+        if (checkbox.checked) {
+            const selectedSong = songList.find((song) => song.id === checkbox.value);
+            if (selectedSong) {
+                selectedSongs.push(selectedSong);
+            }
+        }
+    });
+
+
+    // ボタンを非表示にする
+    const buttons = document.querySelectorAll('button');
+    buttons.forEach((button) => {
+        button.style.display = 'none';
+    });
+    const instructionDiv = document.getElementById('instruction');
+    instructionDiv.style.display = 'none';
+    const songlistsDiv = document.getElementById('songList');
+    songlistsDiv.style.display = 'none';
+
+    // 選択された楽曲リストを表示するHTMLを生成
+    let selectedSongsHTML = '<h2>選択された楽曲:</h2><ul>';
+    selectedSongs.forEach((song) => {
+        selectedSongsHTML += `<li>${song.title}</li>`;
+    });
+    selectedSongsHTML += '</ul>';
+
+    // 新しいコンテンツを表示
+    const contentDiv = document.getElementById('content');
+    contentDiv.innerHTML = selectedSongsHTML;
+
+    // 選択要素数を更新して表示
+    updateSelectedCount();
+
+}
+
+
+// 全選択・選択解除
 function selectAll() {
     const checkboxes = document.getElementsByName('song');
     checkboxes.forEach((checkbox) => {
         checkbox.checked = true;
     });
+    updateCheckedCount();
 }
 
 function deselectAll() {
@@ -74,28 +121,27 @@ function deselectAll() {
     checkboxes.forEach((checkbox) => {
         checkbox.checked = false;
     });
+    updateCheckedCount();
 }
 
-function saveSelection() {
-    selectedSongs = [];
+// チェックボックスの状態変化を監視
+function handleCheckboxChange(index) {
+    songList[index].checked = !songList[index].checked;
+    updateCheckedCount();
+}
+
+// チェック数のカウントを更新
+function updateCheckedCount() {
+    // const checkedCount = songList.filter(song => song.checked).length;
     const checkboxes = document.getElementsByName('song');
+    let checkNum = 0;
     checkboxes.forEach((checkbox) => {
         if (checkbox.checked) {
-            selectedSongs.push(checkbox.value);
+            checkNum++;
         }
     });
-    // updateSelectedList();
-    // クエリパラメータに選択された曲リストを渡してselected_songs.htmlに遷移する
-    const queryString = `?selectedList=${encodeURIComponent(JSON.stringify(selectedSongs))}`;
-    window.location.href = `selected_songs.html${queryString}`;
+    document.getElementById('checked-count').textContent = `選択された楽曲数: ${checkNum}/${songList.length}`;
 }
 
-function updateSelectedList() {
-    const selectedList = document.getElementById('selectedList');
-    selectedList.innerHTML = '';
-    selectedSongs.forEach((song) => {
-        const listItem = document.createElement('li');
-        listItem.textContent = song;
-        selectedList.appendChild(listItem);
-    });
-}
+
+

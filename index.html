@@ -11,7 +11,7 @@
     <h1>BUMP-Sorter</h1>
     <div id="pageDiscription">
         <h2>
-            What's BUMP-Sorter?
+            BUMP-Sorter について
         </h2>
         <p>
             BUMP OF CHICKEN
@@ -26,21 +26,25 @@
         </h3>
         <p>
             選択が終わったら画面最下部の完了ボタンを押してください。
-            (全選択ボタンも画面下部にあります)
         </p>
     </div>
-    <div id="songList">
-        <!-- JavaScriptで楽曲リストを生成するのでここには何も書かない -->
-    </div>
+    <br>
     <button onclick="selectAll()">全選択</button>
     <button onclick="deselectAll()">全選択解除</button>
     <br>
+    <div id="songList">
+        <!-- JavaScriptで楽曲リストを生成するのでここには何も書かない -->
+    </div>
+    
+    <!-- フローティングボタン -->
+    <div id="selectedCountButton" class="floating-button">
+        <span id="checked-count">0</span>
+    </div>
+
     <button onclick="saveSelection()">選択を完了</button>
-    <!-- <div id="selectedSongs"> -->
-    <!-- <h2>選択された楽曲:</h2>
-        <ul id="selectedList">
-        </ul> -->
-    <!-- </div> -->
+    <div id="content">
+        <!-- ここに選択楽曲が表示 -->
+    </div>
 </body>
 
 </html>

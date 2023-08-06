@@ -2,31 +2,16 @@
 <html>
 
 <head>
-    <title>選択された曲リスト</title>
+    <title>選択された楽曲</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="js/sort.js"></script>
 </head>
 
 <body>
-    <h1>選択された曲リスト</h1>
-    <div>
-        <ul id="selectedList">
-            <!-- JavaScriptで選択された曲リストを表示するのでここには何も書かない -->
-        </ul>
+    <h1>選択された楽曲</h1>
+    <div id="selectedList">
+        <!-- JavaScriptで選択された楽曲リストを表示するのでここには何も書かない -->
     </div>
-    <button onclick="goBack()">戻る</button>
-    <script>
-        // JavaScriptコードをここに追加
-        const selectedList = JSON.parse(decodeURIComponent(window.location.search.substring(1))).selectedList;
-        const selectedListElement = document.getElementById('selectedList');
-        selectedList.forEach((song) => {
-            const listItem = document.createElement('li');
-            listItem.textContent = song;
-            selectedListElement.appendChild(listItem);
-        });
-
-        function goBack() {
-            window.history.back();
-        }
-    </script>
 </body>
 
 </html>
