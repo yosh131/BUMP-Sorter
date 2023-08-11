@@ -189,11 +189,11 @@ async function startSort() {
 
     quickSortFirstK(selectedSongs, 0, selectedSongs.length, 3);
     // ToDo
-    // pivotSelection: 　threshold以下で中央値選択を消してランダム一点選択にする。
-    // pivotSelection, partition: pivotSelectionで選択した結果は辞書か何かに記憶しておき、Partitioinで同じ質問があればスキップされるようにする。
+    // pivotSelection, partition: pivotSelectionで選択した結果は辞書か何かに記憶しておき、Partitioinで同じ質問があればスキップされるようにする
+    // 同順位を管理する機能はmust.
     // Kの値を可変に。
-    // 
-
+    // resultの表示UI
+    // resultをサーバのDBに蓄積させて月間ランキングの作成
 
 
     // const med_idx = pivotSelection(selectedSongs, 0, selectedSongs.length, compare_func);
