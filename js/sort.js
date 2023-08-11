@@ -1,14 +1,17 @@
-document.addEventListener('DOMContentLoaded', function () {
-    // URLパラメータから選択された楽曲リストを取得
-    const urlParams = new URLSearchParams(window.location.search);
-    const selectedSongsParam = urlParams.get('selectedList');
-    const selectedSongs = JSON.parse(decodeURIComponent(selectedSongsParam));
+// 改良版クイックソート
 
-    // 選択された楽曲リストを表示
-    const selectedListDiv = document.getElementById('selectedList');
-    selectedSongs.forEach((song) => {
-        const songDiv = document.createElement('div');
-        songDiv.textContent = `${song.title}`;
-        selectedListDiv.appendChild(songDiv);
-    });
-});
+// pivotを軸にして, compare_funcの結果からn領域に分割
+function partition_ndiv(A, start, end, pivot_idx, compare_func) {
+
+}
+
+// 比較関数
+function compare_func(a, b) {
+    // GUIでa,bを表示
+
+    // 5段階の選択ボタンを表示
+
+    // クリックの結果をみる
+
+
+}
