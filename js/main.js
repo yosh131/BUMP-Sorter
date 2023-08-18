@@ -1,6 +1,6 @@
 let selectedSongs = [];
 let songList = [];
-
+let numberOfTop = 10;
 
 fetch('songdata/songs.csv')
     .then(response => response.arrayBuffer())
@@ -8,6 +8,9 @@ fetch('songdata/songs.csv')
         const decoder = new TextDecoder('Shift_JIS');
         const csv = decoder.decode(buffer);
         songList = parseCSV(csv);
+        songList.forEach(song => {
+            song.rank = -1;
+        })
         generateSongList();
         var instructionDiv_2 = document.getElementById('instruction_2');
         instructionDiv_2.style.display = 'none';
@@ -161,6 +164,10 @@ async function startSort() {
     // let idxs = getRandomIntegersInRange(0, selectedSongs.length - 1, 2)
     // compare_func(selectedSongs[idxs[0]], selectedSongs[idxs[1]]);
 
+    const progressContainer = document.getElementById('progress');
+    progressContainer.innerHTML = `<p>${selectedSongs.length}曲中 Top ${numberOfTop} をソートします</p><br>`;
+
+
     // 5段階の選択ボタンを表示
     const choiceContainer = document.getElementById('choice-container');
     for (let i = 1; i <= 5; i++) {
@@ -173,7 +180,7 @@ async function startSort() {
         if (i === 1) {
             const textBeforeButton = document.createElement('span');
             textBeforeButton.className = 'choice-text'; // 新しいクラスを追加
-            textBeforeButton.textContent = '左の曲の方が好き←';
+            textBeforeButton.textContent = '左の方が好き←';
             choiceContainer.appendChild(textBeforeButton);
         }
 
@@ -182,19 +189,22 @@ async function startSort() {
         if (i === 5) {
             const textAfterButton = document.createElement('span');
             textAfterButton.className = 'choice-text'; // 新しいクラスを追加
-            textAfterButton.textContent = '→右の曲の方が好き';
+            textAfterButton.textContent = '→右の方が好き';
             choiceContainer.appendChild(textAfterButton);
         }
     }
 
-    quickSortFirstK(selectedSongs, 0, selectedSongs.length, 3);
     // ToDo
     // pivotSelection, partition: pivotSelectionで選択した結果は辞書か何かに記憶しておき、Partitioinで同じ質問があればスキップされるようにする
     // 同順位を管理する機能はmust.
     // Kの値を可変に。
-    // resultの表示UI
-    // resultをサーバのDBに蓄積させて月間ランキングの作成
 
+    // resultの表示UI
+    (async () => {
+        await quickSortFirstK(selectedSongs, 0, selectedSongs.length, numberOfTop);
+        await showResult(selectedSongs);
+    })();
+    // resultをサーバのDBに蓄積させて月間ランキングの作成
 
     // const med_idx = pivotSelection(selectedSongs, 0, selectedSongs.length, compare_func);
     // console.log(med_idx);
@@ -212,6 +222,72 @@ async function startSort() {
 
 }
 
+async function showResult(songList) {
+
+    // 疑似的なページ遷移
+    // ボタンを非表示にする
+    const buttons = document.querySelectorAll('button');
+    buttons.forEach((button) => {
+        button.style.display = 'none';
+    });
+    const instructionDiv = document.getElementById('song-container');
+    instructionDiv.style.display = 'none';
+    const choiceDiv = document.getElementById('choice-container');
+    choiceDiv.style.display = 'none';
+    const instructionDiv_2 = document.getElementById('instruction_2');
+    instructionDiv_2.style.display = 'none';
+
+    let songListContainer = document.getElementById("result-box");
+    let resultText = '<div id = "result-text"> <h2><b>ソート結果</b></h2></div>';
+    songListContainer.innerHTML = resultText;
+
+    function createTableHead() {
+        const tableHead = document.getElementById("table-head");
+        const headRow = document.createElement("tr");
+        const rankHeader = document.createElement("th");
+        const titleHeader = document.createElement("th");
+
+        rankHeader.textContent = "順位";
+        titleHeader.textContent = "曲名";
+
+        headRow.appendChild(rankHeader);
+        headRow.appendChild(titleHeader);
+
+        tableHead.appendChild(headRow);
+    }
+
+    function createTableBody() {
+        const tableBody = document.getElementById("song-list");
+
+        songList.forEach(song => {
+            if (song.rank == -1 || song.rank > numberOfTop) {
+                return; // continue と同じ処理。
+            }
+            const row = document.createElement("tr");
+            const rankCell = document.createElement("td");
+            const titleCell = document.createElement("td");
+
+            rankCell.textContent = song.rank;
+            titleCell.textContent = song.title;
+
+            if (song.rank <= 3) {
+                rankCell.classList.add("special-rank");
+                titleCell.classList.add("special-title");
+            }
+
+            row.appendChild(rankCell);
+            row.appendChild(titleCell);
+
+            tableBody.appendChild(row);
+        });
+    }
+
+    createTableHead();
+    createTableBody();
+}
+
+
+
 // 改良版クイックソート. リストAを破壊的にソート
 // [start, end)の半開区間で渡す。上位K個のソートを保証
 async function quickSortFirstK(A, start, end, K) {
@@ -221,12 +297,25 @@ async function quickSortFirstK(A, start, end, K) {
 
             // 5領域に分割
             const div_index = await partition_5div(A, start, end, pivot_idx, compare_func);
-
-            for (let i = 0; i < 5; i++) {
-                if (i == 2) continue; //pivotと等価なものはソートの必要なし
+            const rnd_index = getRandomIntegersInRange(0, 4, 5);
+            for (let k = 0; k < 5; k++) {
+                let i = rnd_index[k];
+                if (i == 2) {
+                    // middle領域は順位確定、rankを記録
+                    for (let j = div_index[i]; j < div_index[i + 1]; j++) {
+                        A[j].rank = div_index[i] + 1;
+                    }
+                    continue; //pivotと等価なものはソートの必要なし
+                }
                 if (div_index[i] < K) { //区間の開始がK未満のものはまだソートする
                     if (div_index[i + 1] - div_index[i] >= 2) { // 区間長1以下はソート終了
                         await quickSortFirstK(A, div_index[i], div_index[i + 1], K);
+                    }
+                    else { //ソート終了
+                        // rank記録
+                        for (let j = div_index[i]; j < div_index[i + 1]; j++) {
+                            A[j].rank = div_index[i] + 1;
+                        }
                     }
                 }
             }
@@ -325,7 +414,7 @@ async function partition_5div(A, start, end, pivot_idx, compare_func) {
                     break;
             }
         }
-        let B = left2.concat(left1);
+        let B = left2.concat(left1); //配列Aの[start, end)の範囲で置き換えるための配列B
         B = B.concat(middle);
         B = B.concat(right1);
         B = B.concat(right2);

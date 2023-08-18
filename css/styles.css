@@ -112,7 +112,18 @@ button {
     margin: 5px;
     padding: 10px 20px;
     font-size: 16px;
-    background-color: #0ba9e7d8;
+    background-color: #49567F;
+    color: #FFF;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#startpage {
+    margin: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #6682df;
     color: #FFF;
     border: none;
     border-radius: 5px;
@@ -133,7 +144,7 @@ button:hover {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    background-color: #214abd;
+    background-color: #464646;
     color: #FFF;
     padding: 10px;
     border-radius: 5px;
@@ -146,8 +157,9 @@ button:hover {
 
 #song-container {
     display: flex;
-    justify-content: space-between;
-    max-width: 700px;
+    /* justify-content: space-between; */
+    justify-content: center;
+    max-width: 800px;
     /* max-width: 400px; */
     margin: 20px auto;
     font-size: 22px;
@@ -159,7 +171,7 @@ button:hover {
     border-radius: 5px;
     margin: 3%;
     text-align: center;
-    width: 45%;
+    width: 35%;
     background-color: #ffffff;
 }
 
@@ -175,8 +187,10 @@ button:hover {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    width: 10%;
+    text-align: center;
     background-color: #727e94;
-    transition: background-color 0.3s;
+    transition: background-color 0.15s;
 }
 
 .choice-button:hover {
@@ -186,4 +200,45 @@ button:hover {
 .choice-text {
     margin-top: 5px;
     /* 適切な余白サイズに調整してください */
+}
+
+
+
+/* Result */
+
+.table-container {
+    display: flex;
+    justify-content: center;
+}
+
+table {
+    border-collapse: collapse;
+    justify-content: center;
+    width: 70%;
+    margin-top: 20px;
+}
+
+th,
+td {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+/* Rankが1, 2, 3のセルのスタイル */
+.special-rank {
+    font-size: 24px;
+    font-weight: bold;
+    background-color: #ffcc00;
+}
+
+.special-title {
+    font-size: 24px;
+    font-weight: bold;
+    background-color: #f7eab9;
 }

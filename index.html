@@ -19,10 +19,15 @@
         <p>
             BUMP OF CHICKEN
             の楽曲ソートを行うページです。隠しトラックを除いた全楽曲が対象です（もしないものがあれば教えてください）。表示された楽曲のどちらが好きかを選んでいくと好きな曲ランキングが完成します。ただし、全楽曲を対象として並び変えると非常に時間がかかるため、<strong>最初にある程度好きな曲を選択してもらい、その後にソートを開始する方式としています</strong>。
-            <br>(制作者Twitter: @yoshi_b_o_c , 最終更新:2023.08.04)
+            <br>(制作者Twitter: @yoshi_b_o_c , 最終更新:2023.08.18)
             <hr>
         </p>
     </div>
+
+    <!-- <div id="startpage">
+        <button onclick="selectAll()"><b>ソートを開始する</b></button>
+    </div> -->
+
 
     <div id="instruction">
         <h3>
@@ -33,8 +38,8 @@
         </p>
     </div>
     <br>
-    <button onclick="selectAll()">全選択</button>
-    <button onclick="deselectAll()">全選択解除</button>
+    <button onclick="selectAll()"><b>全選択</b></button>
+    <button onclick="deselectAll()"><b>全選択解除</b></button>
     <br>
     <div id="songList">
         <!-- JavaScriptで楽曲リストを生成するのでここには何も書かない -->
@@ -76,7 +81,11 @@
 
         </p> -->
     </div>
-    <button onclick="saveSelection()">選択を完了</button>
+    <button onclick="saveSelection()"><b>選択を完了</b></button>
+    <div id="progress">
+        <!-- ここで進捗を表示 -->
+    </div>
+
     <div id="song-container">
         <!-- ここに選択楽曲が表示 -->
     </div>
@@ -85,6 +94,16 @@
     </div>
     <div id="result-box">
         <!-- 結果はここに表示されます -->
+    </div>
+    <div class="table-container">
+        <table>
+            <thead id="table-head">
+                <!-- JavaScript で生成された見出しがここに表示されます -->
+            </thead>
+            <tbody id="song-list">
+                <!-- JavaScript で生成された曲リストがここに表示されます -->
+            </tbody>
+        </table>
     </div>
 </body>
 
