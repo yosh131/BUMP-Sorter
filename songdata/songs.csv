@@ -17,7 +17,7 @@ id,title,album,dummy
 16,Ever lasting lie,「THE LIVING DEAD」,dummy
 17,グロリアスレボリューション,「THE LIVING DEAD」,dummy
 18,Ending,「THE LIVING DEAD」,dummy
-19,Stage Of The Ground,「jupiter」,dummy
+19,Stage of the ground,「jupiter」,dummy
 20,天体観測,「jupiter」,dummy
 21,Title of mine,「jupiter」,dummy
 22,キャッチボール,「jupiter」,dummy
@@ -29,7 +29,7 @@ id,title,album,dummy
 28,ダンデライオン,「jupiter」,dummy
 29,asgard,「ユグドラシル」,dummy
 30,オンリー ロンリー グローリー,「ユグドラシル」,dummy
-31,乗車券,「ユグドラシル」,dummy
+31,乗車権,「ユグドラシル」,dummy
 32,ギルド,「ユグドラシル」,dummy
 33,embrace,「ユグドラシル」,dummy
 34,sailing day,「ユグドラシル」,dummy
@@ -44,7 +44,7 @@ id,title,album,dummy
 43,voyager,「orbital period」,dummy
 44,星の鳥,「orbital period」,dummy
 45,メーデー,「orbital period」,dummy
-46,才脳人応援歌,「orbital period」,dummy
+46,才悩人応援歌,「orbital period」,dummy
 47,プラネタリウム,「orbital period」,dummy
 48,supernova,「orbital period」,dummy
 49,ハンマーソングと痛みの塔,「orbital period」,dummy
@@ -112,7 +112,7 @@ id,title,album,dummy
 111,ファイター,「Butterflies」,dummy
 112,aurora arc,「aurora arc」,dummy
 113,月虹,「aurora arc」,dummy
-114,aurora,「aurora arc」,dummy
+114,Aurora,「aurora arc」,dummy
 115,記念撮影,「aurora arc」,dummy
 116,ジャングルジム,「aurora arc」,dummy
 117,リボン,「aurora arc」,dummy
@@ -124,19 +124,65 @@ id,title,album,dummy
 123,Spica,「aurora arc」,dummy
 124,新世界,「aurora arc」,dummy
 125,流れ星の正体,「aurora arc」,dummy
-126,Merry Christmas,シングル限定/その他,dummy
-127,pinkie,シングル限定/その他,dummy
-128,キャラバン,シングル限定/その他,dummy
-129,good friends,シングル限定/その他,dummy
-130,歩く幽霊,シングル限定/その他,dummy
-131,ディアマン,シングル限定/その他,dummy
-132,ほんとのほんと,シングル限定/その他,dummy
-133,Gravity,シングル限定/その他,dummy
-134,アカシア,シングル限定/その他,dummy
-135,Flare,シングル限定/その他,dummy
-136,なないろ,シングル限定/その他,dummy
-137,Small world,シングル限定/その他,dummy
-138,クロノスタシス,シングル限定/その他,dummy
-139,SOUVENIR,シングル限定/その他,dummy
-140,窓の中から,シングル限定/その他,dummy
-141,木漏れ日と一緒に,シングル限定/その他,dummy
+126,pathfinder,シングル限定/その他,dummy
+127,BUMP OF CHICKENのテーマ,シングル限定/その他,dummy
+128,Merry Christmas,シングル限定/その他,dummy
+129,pinkie,シングル限定/その他,dummy
+130,キャラバン,シングル限定/その他,dummy
+131,good friends,シングル限定/その他,dummy
+132,歩く幽霊,シングル限定/その他,dummy
+133,ディアマン,シングル限定/その他,dummy
+134,ほんとのほんと,シングル限定/その他,dummy
+135,Gravity,シングル限定/その他,dummy
+136,アカシア,シングル限定/その他,dummy
+137,Flare,シングル限定/その他,dummy
+138,なないろ,シングル限定/その他,dummy
+139,Small world,シングル限定/その他,dummy
+140,クロノスタシス,シングル限定/その他,dummy
+141,SOUVENIR,シングル限定/その他,dummy
+142,窓の中から,シングル限定/その他,dummy
+143,木漏れ日と一緒に,シングル限定/その他,dummy
+1001,ドッキング,隠しトラック,dummy
+1002,DANNY,隠しトラック,dummy
+1003,マイベストフレンズ,隠しトラック,dummy
+1004,さよならナイ,隠しトラック,dummy
+1005,THE LIVING DEAD,隠しトラック,dummy
+1006,オゴマメ,隠しトラック,dummy
+1007,Ｈ･Ｉ･Ｒ･Ｏ･Ｗ･Ａ･Ｋ･Ｉ,隠しトラック,dummy
+1008,LOVE,隠しトラック,dummy
+1009,in my heart,隠しトラック,dummy
+1010,in my nikke,隠しトラック,dummy
+1011,Tinpost*Uncle on,隠しトラック,dummy
+1012,おもち,隠しトラック,dummy
+1013,喝采～花になれ～,隠しトラック,dummy
+1014,シャドー,隠しトラック,dummy
+1015,O・TO・GA・MEはーと,隠しトラック,dummy
+1016,星のアルペジオ,隠しトラック,dummy
+1017,いか,隠しトラック,dummy
+1018,ワッショイ,隠しトラック,dummy
+1019,ドスコイ,隠しトラック,dummy
+1020,おるすばん,隠しトラック,dummy
+1021,柿,隠しトラック,dummy
+1022,スターダストダンスホール,隠しトラック,dummy
+1023,BELIEVE,隠しトラック,dummy
+1024,BELIEVE デモテープ編,隠しトラック,dummy
+1025,new world サミット,隠しトラック,dummy
+1026,ラブ・トライアングル 君と僕と委員長ver.,隠しトラック,dummy
+1027,三人のおじさん,隠しトラック,dummy
+1028,油,隠しトラック,dummy
+1029,OFCOURSE,隠しトラック,dummy
+1030,仕事 ?Job?,隠しトラック,dummy
+1031,恋の陰陽師,隠しトラック,dummy
+1032,新鮮・お野菜王国の伝説のテーマ,隠しトラック,dummy
+1033,BURA-BURA GIRL,隠しトラック,dummy
+1034,BURA-BURA BOY,隠しトラック,dummy
+1035,play sports,隠しトラック,dummy
+1036,faraway,隠しトラック,dummy
+1037,くちびる,隠しトラック,dummy
+1038,SHODO ～書道～,隠しトラック,dummy
+1039,オマール,隠しトラック,dummy
+1040,TO.I.KI,隠しトラック,dummy
+1041,山よ,隠しトラック,dummy
+1042,ぱやぱぱエース,隠しトラック,dummy
+1043,鋼鉄のバロング,隠しトラック,dummy
+1044,やさしごん,隠しトラック,dummy
