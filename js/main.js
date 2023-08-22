@@ -90,7 +90,7 @@ function generateSongList() {
 
     // 選択肢の値を生成し、プルダウンメニューに追加
     for (let i = 5; i <= 100; i += 5) {
-        if (i > 30 && i % 5 === 5) continue; //30以上は10毎
+        if (i > 30 && i % 10 === 5) continue; //30以上は10毎
         const optionElement = document.createElement('option');
         optionElement.value = i;
         optionElement.textContent = i;
