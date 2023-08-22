@@ -14,6 +14,9 @@ fetch('songdata/songs.csv')
         generateSongList();
         var instructionDiv_2 = document.getElementById('instruction_2');
         instructionDiv_2.style.display = 'none';
+        const progressDiv = document.getElementById('progress-container');
+        progressDiv.style.display = 'none';
+
     })
     .catch(error => {
         console.error('楽曲リストの取得に失敗しました', error);
@@ -51,6 +54,7 @@ function generateSongList() {
 
             const albumHeader = document.createElement('h3');
             albumHeader.textContent = song.album;
+            albumHeader.classList.add('albumHeader'); // アルバムヘッダーにクラスを追加
             songListDiv.appendChild(albumHeader);
             currentAlbum = song.album;
         }
@@ -60,6 +64,8 @@ function generateSongList() {
         checkbox.type = 'checkbox';
         checkbox.name = 'song';
         checkbox.value = song.id;
+        checkbox.album = song.album;
+        checkbox.title = song.title;
         checkbox.checked = false;
         checkbox.addEventListener('change', () => handleCheckboxChange(index));
 
@@ -68,7 +74,42 @@ function generateSongList() {
         label.appendChild(document.createElement('br'));
         songListDiv.appendChild(label);
     });
+    // アルバムヘッダーにクリック機能を追加
+    const albumHeaders = document.querySelectorAll('.albumHeader');
+    albumHeaders.forEach((albumHeader) => {
+        albumHeader.addEventListener('click', () => {
+            selectAlbum(albumHeader.textContent);
+        });
+    });
+
     updateCheckedCount();
+
+    // プルダウンメニューの生成
+    const selectElement = document.createElement('select');
+    selectElement.id = 'numberOfTop';
+
+    // 選択肢の値を生成し、プルダウンメニューに追加
+    for (let i = 5; i <= 100; i += 5) {
+        if (i > 30 && i % 5 === 5) continue; //30以上は10毎
+        const optionElement = document.createElement('option');
+        optionElement.value = i;
+        optionElement.textContent = i;
+        selectElement.appendChild(optionElement);
+    }
+
+    // "selectTopK" というIDのdivにプルダウンメニューを追加
+    const selectTopKDiv = document.getElementById('selectTopK');
+    selectTopKDiv.appendChild(selectElement);
+
+    // プルダウンメニューの値が変更されたときの処理
+    selectElement.addEventListener('change', (event) => {
+        const selectedValue = parseInt(event.target.value, 10);
+        if (!isNaN(selectedValue)) {
+            numberOfTop = selectedValue;
+            console.log('numberOfTopの値が変更されました:', numberOfTop);
+        }
+    });
+
 
 }
 
@@ -87,6 +128,21 @@ function deselectAll() {
     const checkboxes = document.getElementsByName('song');
     checkboxes.forEach((checkbox) => {
         checkbox.checked = false;
+    });
+    updateCheckedCount();
+}
+
+function selectAlbum(album) {
+    const checkboxes = document.getElementsByName('song');
+    const checkboxesArray = Array.from(checkboxes);
+    const checkboxesAlbum = checkboxesArray.filter(checkbox => checkbox.album === album);
+    const checkedCount = checkboxesAlbum.filter(checkbox => checkbox.checked === true).length;
+    var checkVal = true;
+    if (checkedCount == checkboxesAlbum.length) {
+        checkVal = false;
+    }
+    checkboxesAlbum.forEach((checkbox) => {
+        checkbox.checked = checkVal;
     });
     updateCheckedCount();
 }
@@ -139,6 +195,8 @@ function saveSelection() {
     songlistsDiv.style.display = 'none';
     const selectedCountButton = document.getElementById('selectedCountButton');
     selectedCountButton.style.display = 'none';
+    const selectTopKDiv = document.getElementById('selectTopK');
+    selectTopKDiv.style.display = 'none';
     const instructionDiv_2 = document.getElementById('instruction_2');
     instructionDiv_2.style.display = 'block';
 
@@ -165,8 +223,10 @@ async function startSort() {
     // compare_func(selectedSongs[idxs[0]], selectedSongs[idxs[1]]);
 
     const progressContainer = document.getElementById('progress');
-    progressContainer.innerHTML = `<p>${selectedSongs.length}曲中 Top ${numberOfTop} をソートします</p><br>`;
+    progressContainer.innerHTML = `<p>${selectedSongs.length}曲中 Top ${Math.min(numberOfTop, selectedSongs.length)} をソートします</p><br>`;
 
+    const progressDiv = document.getElementById('progress-container');
+    progressDiv.style.display = 'block';
 
     // 5段階の選択ボタンを表示
     const choiceContainer = document.getElementById('choice-container');
@@ -200,8 +260,14 @@ async function startSort() {
     // Kの値を可変に。
 
     // resultの表示UI
+    await updateProgressBar(0.0); //プログレスの初期化
     (async () => {
         await quickSortFirstK(selectedSongs, 0, selectedSongs.length, numberOfTop);
+
+        // setInterval(() => {
+        //     const value = awaitprogress(); // 0.0 から 1.0 の値を取得
+        //     updateProgressBar(value);
+        // }, 1000); // プログレスバーを更新する間隔（ミリ秒）
         await showResult(selectedSongs);
     })();
     // resultをサーバのDBに蓄積させて月間ランキングの作成
@@ -220,6 +286,26 @@ async function startSort() {
 
 
 
+}
+async function updateProgressBar(value) {
+    const progressBar = document.getElementById("progressBar");
+    progressBar.style.width = (value * 100) + "%";
+}
+
+async function progress() {
+    // 0.0 から 1.0 の値を取得する関数
+    let fixedNum = 0;
+    // let totalNum = Math.min(selectedSongs.length, numberOfTop);
+    let totalNum = selectedSongs.length;
+    for (let i = 0; i < totalNum; i++) {
+        if (selectedSongs[i].rank != -1) {
+            fixedNum++;
+        }
+    }
+    //立方根で写像したものを進捗として可視化.理由は割合に対して進捗が線形でないから.
+    //本来はlogが正しいはずだが簡易的に立方根で実装.
+    let ret = Math.cbrt(fixedNum / totalNum);
+    return ret;
 }
 
 async function showResult(songList) {
@@ -316,10 +402,21 @@ async function quickSortFirstK(A, start, end, K) {
                         for (let j = div_index[i]; j < div_index[i + 1]; j++) {
                             A[j].rank = div_index[i] + 1;
                         }
+                        const prog = await progress()
+                        await updateProgressBar(prog);
                     }
+                } else { //上位K件に該当しないものは順位確定
+                    // rank記録
+                    for (let j = div_index[i]; j < div_index[i + 1]; j++) {
+                        A[j].rank = div_index[i] + 1;
+                    }
+                    const prog = await progress()
+                    await updateProgressBar(prog);
                 }
             }
         }
+        const prog = await progress()
+        await updateProgressBar(prog);
         resolve(A);
     });
 }

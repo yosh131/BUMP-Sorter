@@ -66,6 +66,17 @@ h1 {
     text-align: left;
 }
 
+#selectTopK {
+    text-align: left;
+}
+#numberOfTop {
+    font-size: 16px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f7f7f7;
+}
+
 #songList {
     text-align: center;
     margin-bottom: 20px;
@@ -93,7 +104,7 @@ label {
     text-align: left;
     margin-right: 10px;
     color: #333;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.15s ease;
 }
 
 label:last-child {
@@ -162,7 +173,7 @@ button:hover {
     max-width: 800px;
     /* max-width: 400px; */
     margin: 20px auto;
-    font-size: 22px;
+    font-size: 20px;
 }
 
 .song-box {
@@ -241,4 +252,35 @@ th {
     font-size: 24px;
     font-weight: bold;
     background-color: #f7eab9;
+}
+
+/* ソート進捗を表示 */
+
+#progress-bar {
+    display: block;
+    /* justify-content: center;
+    align-items: center; */
+    /* text-align: center; */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#progress-container {
+    width: 45%;
+    height: 20px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    overflow: hidden;
+    justify-content: center;
+    text-align: center;
+    margin: auto;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 0;
+    justify-content: left;
+    background-color: #4caf50;
+    transition: width 0.3s ease-in-out;
 }
