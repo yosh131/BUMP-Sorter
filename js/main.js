@@ -325,6 +325,7 @@ async function showResult(songList) {
 
     let songListContainer = document.getElementById("result-box");
     let resultText = '<div id = "result-text"> <h2><b>ソート結果</b></h2></div>';
+    resultText += `<p>ハッシュタグ #BUMP_Sorterで結果をシェアしてくれると嬉しいです！</p>`;
     songListContainer.innerHTML = resultText;
 
     function createTableHead() {
