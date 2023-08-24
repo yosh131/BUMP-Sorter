@@ -13,6 +13,15 @@ body {
     color: #333;
 }
 
+#warning-message {
+    background-color: #f2dede;
+    color: #a94442;
+    padding: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+
 header {
     width: 100%;
     padding: 30px 4% 10px;
