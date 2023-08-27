@@ -322,6 +322,8 @@ async function showResult(songList) {
     choiceDiv.style.display = 'none';
     const instructionDiv_2 = document.getElementById('instruction_2');
     instructionDiv_2.style.display = 'none';
+    const pageDiscriptionDiv = document.getElementById('pageDiscription');
+    pageDiscriptionDiv.style.display = 'none'
 
     let songListContainer = document.getElementById("result-box");
     let resultText = '<div id = "result-text"> <h2><b>ソート結果</b></h2></div>';
