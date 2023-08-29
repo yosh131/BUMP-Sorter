@@ -264,6 +264,12 @@ th {
     background-color: #f7eab9;
 }
 
+.special-album {
+    /* font-size: 20px;
+    font-weight: bold; */
+    background-color: #f7eab9;
+}
+
 /* ソート進捗を表示 */
 
 #progress-bar {

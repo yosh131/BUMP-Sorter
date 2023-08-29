@@ -335,12 +335,15 @@ async function showResult(songList) {
         const headRow = document.createElement("tr");
         const rankHeader = document.createElement("th");
         const titleHeader = document.createElement("th");
+        const albumHeader = document.createElement("th");
 
         rankHeader.textContent = "順位";
         titleHeader.textContent = "曲名";
+        albumHeader.textContent = "Album";
 
         headRow.appendChild(rankHeader);
         headRow.appendChild(titleHeader);
+        headRow.appendChild(albumHeader);
 
         tableHead.appendChild(headRow);
     }
@@ -355,17 +358,21 @@ async function showResult(songList) {
             const row = document.createElement("tr");
             const rankCell = document.createElement("td");
             const titleCell = document.createElement("td");
+            const albumCell = document.createElement("td");
 
             rankCell.textContent = song.rank;
             titleCell.textContent = song.title;
+            albumCell.textContent = song.album;
 
             if (song.rank <= 3) {
                 rankCell.classList.add("special-rank");
                 titleCell.classList.add("special-title");
+                albumCell.classList.add("special-album");
             }
 
             row.appendChild(rankCell);
             row.appendChild(titleCell);
+            row.appendChild(albumCell);
 
             tableBody.appendChild(row);
         });
@@ -373,9 +380,43 @@ async function showResult(songList) {
 
     createTableHead();
     createTableBody();
+
+    // 円グラフ描画
+
+    // アルバム数を集計
+    const albumCount = {};
+    songList.forEach(song => {
+        if (song.rank == -1 || song.rank > numberOfTop) {
+            return; // continue と同じ処理。
+        }
+        if (albumCount[song.album]) {
+        albumCount[song.album]++;
+        } else {
+        albumCount[song.album] = 1;
+        }
+    });
+
+    // ドーナツ型の円グラフのデータ
+    const data = {
+        labels: Object.keys(albumCount),
+        datasets: [{
+        data: Object.values(albumCount),
+        backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', /* 他の色... */],
+        }]
+    };
+
+    // ドーナツ型の円グラフを描画
+    const ctx = document.getElementById('donutChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'doughnut',
+        data: data,
+    });
+
+
 }
 
 
+/* --------ここからソート詳細------------- */
 
 // 改良版クイックソート. リストAを破壊的にソート
 // [start, end)の半開区間で渡す。上位K個のソートを保証
