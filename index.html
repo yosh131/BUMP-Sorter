@@ -5,7 +5,9 @@
     <title>BUMP-Sorter</title>
     <link rel="stylesheet" href="./css/styles.css">
     <script src="./js/main.js"></script>
+    <!-- 以下、Chartのライブラリ -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
     <!-- <script src="./js/sort.js" type="module"></script> -->
 </head>
 
@@ -82,7 +84,7 @@
     <div id="selectTopK">
 
         <h3>
-            ②上位何曲までをソートするか選択してください。
+            ②上位何曲までをソートするか選択してください
         </h3>
         <p>
             推奨は10~30曲です。多ければ多いほどソートに時間がかかります。
@@ -131,9 +133,18 @@
             </tbody>
         </table>
     </div>
-    <canvas id="donutChart" width="100" height="100">
-        <!-- ここにアルバムの円グラフ -->
-    </canvas>
+    <br>
+    <br>
+    <div id="chartContainer" style="position:relative;
+    width:45%;height:45%;
+    justify-content:center;
+    display:frex;
+    margin:auto;
+    text-align: center;">
+        <canvas id="donutChart">
+            <!-- ここにアルバムの円グラフ -->
+        </canvas>
+    </div>
 </body>
 
 </html>

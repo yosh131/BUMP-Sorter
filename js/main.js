@@ -89,7 +89,7 @@ function generateSongList() {
     selectElement.id = 'numberOfTop';
 
     // 選択肢の値を生成し、プルダウンメニューに追加
-    for (let i = 5; i <= 100; i += 5) {
+    for (let i = 10; i <= 100; i += 5) {
         if (i > 30 && i % 10 === 5) continue; //30以上は10毎
         const optionElement = document.createElement('option');
         optionElement.value = i;
@@ -385,23 +385,62 @@ async function showResult(songList) {
 
     // アルバム数を集計
     const albumCount = {};
+    var songlength = 0;
     songList.forEach(song => {
         if (song.rank == -1 || song.rank > numberOfTop) {
             return; // continue と同じ処理。
         }
         if (albumCount[song.album]) {
-        albumCount[song.album]++;
+            albumCount[song.album]++;
+            songlength++;
         } else {
-        albumCount[song.album] = 1;
+            albumCount[song.album] = 1;
+            songlength++;
         }
     });
+    console.assert(songlength > 0);
+    if (songlength == 0) songlength = 1;
+
+
+    const keys = Object.keys(albumCount);
+    // 文字列から "「" と "」" を削除する関数
+    function removeBrackets(str) {
+        return str.replace(/["「」]/g, ''); // "「" と "」" を削除
+    }
+
+    // 新しい文字列の配列を生成
+    const modifiedKeys = keys.map(removeBrackets);
+
+    var albumCountRatio = Object.values(albumCount);
+    for (i = 0; i < albumCountRatio.length; i++) {
+        albumCountRatio[i] = albumCountRatio[i] / songlength * 100;
+    }
+
+    //Todo:　小数の第何位までで切りたい！！！！！！！
+    //Todo:　円グラフの位置と大きさ調整
+    //Todo:　円グラフのラベル（数値）を重ねて表示。
+    //Todo:　場合分けして、Top10まで、Top20まで、とかで円グラフ作る。
 
     // ドーナツ型の円グラフのデータ
     const data = {
-        labels: Object.keys(albumCount),
+        labels: modifiedKeys,
         datasets: [{
-        data: Object.values(albumCount),
-        backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', /* 他の色... */],
+            // data: Object.values(albumCount),
+            data: albumCountRatio,
+            backgroundColor: [
+                '#E57373', // カラー1
+                '#F06292', // カラー2
+                '#BA68C8', // カラー3
+                '#9575CD', // カラー4
+                '#7986CB', // カラー5
+                '#64B5F6', // カラー6
+                '#4FC3F7', // カラー7
+                '#4DD0E1', // カラー8
+                '#81C784', // カラー9
+                '#AED581', // カラー10
+                '#FFD54F', // カラー11
+                '#FFB74D'  // カラー12
+            ],
         }]
     };
 
@@ -411,6 +450,13 @@ async function showResult(songList) {
         type: 'doughnut',
         data: data,
     });
+    // chartContainer要素のサイズを調整
+    // const chartContainer = document.getElementById('chartContainer');
+    // chartContainer.style.width = '128px';
+    // chartContainer.style.height = '128px';
+    // ctx.canvas.parentNode.style.height = "128px";
+    // ctx.canvas.parentNode.style.width = "128px";
+
 
 
 }
