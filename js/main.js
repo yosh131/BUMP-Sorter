@@ -341,7 +341,7 @@ async function showResult(songList) {
 
     let songListContainer = document.getElementById("result-box");
     let resultText = '<div id = "result-text"> <h2><b>ソート結果</b></h2></div>';
-    resultText += `<p>ぜひ結果のスクリーンショットを以下からシェアしてください！</p>`;
+    resultText += `<p>ぜひ結果のスクリーンショットを以下のボタンからシェアしてください！</p>`;
     songListContainer.innerHTML = resultText;
 
 
