@@ -300,3 +300,9 @@ th {
     background-color: #4caf50;
     transition: width 0.3s ease-in-out;
 }
+
+
+.Twitter {
+    background-color: rgb(6, 164, 255);
+    color: #fff;
+}

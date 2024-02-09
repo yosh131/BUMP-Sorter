@@ -102,7 +102,8 @@
         </h3>
         <p>
             5段階で選択してください。3は引き分けです。<br>
-            ※はじめの内は同じ曲が連続で表示されますが仕様です。
+            ※はじめの内は同じ曲が連続で表示されますが仕様です。<br>
+            ※1,5を使わない方が結果が正確になりやすいです。
         </p>
 
     </div>
@@ -120,9 +121,14 @@
     <div id="choice-container">
         <!-- ボタンはここに生成されます -->
     </div>
+
     <div id="result-box">
         <!-- 結果はここに表示されます -->
     </div>
+    <div id="Twitter-share">
+        <button class="Twitter" id="twitterShareBtn" href="#" onclick="shareOnTwitter()">Twitter(X)でシェアする</button>
+    </div>
+
     <div class="table-container">
         <table>
             <thead id="table-head">
@@ -135,16 +141,6 @@
     </div>
     <br>
     <br>
-    <div id="chartContainer" style="position:relative;
-    width:45%;height:45%;
-    justify-content:center;
-    display:frex;
-    margin:auto;
-    text-align: center;">
-        <canvas id="donutChart">
-            <!-- ここにアルバムの円グラフ -->
-        </canvas>
-    </div>
 </body>
 
 </html>

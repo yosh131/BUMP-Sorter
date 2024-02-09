@@ -16,6 +16,9 @@ fetch('songdata/songs.csv')
         instructionDiv_2.style.display = 'none';
         const progressDiv = document.getElementById('progress-container');
         progressDiv.style.display = 'none';
+        // Twitterにシェアボタンを非表示
+        const TwitterDiv = document.getElementById('Twitter-share');
+        TwitterDiv.style.display = 'none'
 
     })
     .catch(error => {
@@ -187,7 +190,9 @@ function saveSelection() {
     // ボタンを非表示にする
     const buttons = document.querySelectorAll('button');
     buttons.forEach((button) => {
-        button.style.display = 'none';
+        if (!button.classList.contains('Twitter')) {
+            button.style.display = 'none';
+        }
     });
     const instructionDiv = document.getElementById('instruction');
     instructionDiv.style.display = 'none';
@@ -197,8 +202,11 @@ function saveSelection() {
     selectedCountButton.style.display = 'none';
     const selectTopKDiv = document.getElementById('selectTopK');
     selectTopKDiv.style.display = 'none';
+
+
     const instructionDiv_2 = document.getElementById('instruction_2');
     instructionDiv_2.style.display = 'block';
+
 
     startSort();
     // // 選択要素数を更新して表示
@@ -314,7 +322,9 @@ async function showResult(songList) {
     // ボタンを非表示にする
     const buttons = document.querySelectorAll('button');
     buttons.forEach((button) => {
-        button.style.display = 'none';
+        if (!button.classList.contains('Twitter')) {
+            button.style.display = 'none';
+        }
     });
     const instructionDiv = document.getElementById('song-container');
     instructionDiv.style.display = 'none';
@@ -325,10 +335,20 @@ async function showResult(songList) {
     const pageDiscriptionDiv = document.getElementById('pageDiscription');
     pageDiscriptionDiv.style.display = 'none'
 
+    // Twitterにシェアボタンを表示
+    const TwitterDiv = document.getElementById('Twitter-share');
+    TwitterDiv.style.display = 'block'
+
     let songListContainer = document.getElementById("result-box");
     let resultText = '<div id = "result-text"> <h2><b>ソート結果</b></h2></div>';
-    resultText += `<p>ハッシュタグ #BUMP_Sorterで結果をシェアしてくれると嬉しいです！</p>`;
+    resultText += `<p>ぜひ結果のスクリーンショットを以下からシェアしてください！</p>`;
     songListContainer.innerHTML = resultText;
+
+
+    // 文字列から "「" と "」" を削除する関数
+    function removeBrackets(str) {
+        return str.replace(/["「」]/g, ''); // "「" と "」" を削除
+    }
 
     function createTableHead() {
         const tableHead = document.getElementById("table-head");
@@ -362,7 +382,7 @@ async function showResult(songList) {
 
             rankCell.textContent = song.rank;
             titleCell.textContent = song.title;
-            albumCell.textContent = song.album;
+            albumCell.textContent = removeBrackets(song.album);
 
             if (song.rank <= 3) {
                 rankCell.classList.add("special-rank");
@@ -403,10 +423,6 @@ async function showResult(songList) {
 
 
     const keys = Object.keys(albumCount);
-    // 文字列から "「" と "」" を削除する関数
-    function removeBrackets(str) {
-        return str.replace(/["「」]/g, ''); // "「" と "」" を削除
-    }
 
     // 新しい文字列の配列を生成
     const modifiedKeys = keys.map(removeBrackets);
@@ -445,11 +461,13 @@ async function showResult(songList) {
     };
 
     // ドーナツ型の円グラフを描画
-    const ctx = document.getElementById('donutChart').getContext('2d');
-    new Chart(ctx, {
-        type: 'doughnut',
-        data: data,
-    });
+    // const ctx = document.getElementById('donutChart').getContext('2d');
+    // new Chart(ctx, {
+    //     type: 'doughnut',
+    //     data: data,
+    // });
+
+
     // chartContainer要素のサイズを調整
     // const chartContainer = document.getElementById('chartContainer');
     // chartContainer.style.width = '128px';
@@ -717,31 +735,48 @@ function waitButtonClick() {
     });
 }
 
+
+
+
+
+// Twitterにシェア機能
+function shareOnTwitter() {
+    // Twitterシェアボタンの内容を更新
+    const twitterShareBtn = document.getElementById('twitterShareBtn');
+    const shareText = `#BUMP_Sorter \n https://yosh131.github.io/BUMP-Sorter/ \n @yoshi_b_o_c より`;
+    const twitterURL = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}`;
+    twitterShareBtn.href = twitterURL;
+
+    // Twitterウィンドウを開く
+    window.open(twitterURL, '_blank');
+}
+
+
 // --------------old code-------------------
 
-    // // 選択された楽曲リストを表示するHTMLを生成
-    // let selectedSongsHTML = '<h2>選択された楽曲:</h2><ul>';
-    // selectedSongs.forEach((song) => {
-    //     selectedSongsHTML += `<li>${song.title}</li>`;
-    // });
-    // selectedSongsHTML += '</ul>';
+// // 選択された楽曲リストを表示するHTMLを生成
+// let selectedSongsHTML = '<h2>選択された楽曲:</h2><ul>';
+// selectedSongs.forEach((song) => {
+//     selectedSongsHTML += `<li>${song.title}</li>`;
+// });
+// selectedSongsHTML += '</ul>';
 
-    // // 新しいコンテンツを表示
-    // const contentDiv = document.getElementById('content');
-    // contentDiv.innerHTML = selectedSongsHTML;
+// // 新しいコンテンツを表示
+// const contentDiv = document.getElementById('content');
+// contentDiv.innerHTML = selectedSongsHTML;
 
-    // Fruit boxes を動的に追加
-    // displaySongs(selectedSongs[0], selectedSongs[1]);
+// Fruit boxes を動的に追加
+// displaySongs(selectedSongs[0], selectedSongs[1]);
 
-    // // Choice buttons を動的に追加
-    // const choiceContainer = document.getElementById('choice-container');
-    // for (let i = 1; i <= 5; i++) {
-    //     const choiceButton = document.createElement('button');
-    //     choiceButton.className = 'choice-button';
-    //     choiceButton.textContent = i;
-    //     choiceButton.addEventListener('click', () => submitPreference(i));
-    //     choiceContainer.appendChild(choiceButton);
-    // }
+// // Choice buttons を動的に追加
+// const choiceContainer = document.getElementById('choice-container');
+// for (let i = 1; i <= 5; i++) {
+//     const choiceButton = document.createElement('button');
+//     choiceButton.className = 'choice-button';
+//     choiceButton.textContent = i;
+//     choiceButton.addEventListener('click', () => submitPreference(i));
+//     choiceContainer.appendChild(choiceButton);
+// }
 // function waitButtonClick() {
 //     return new Promise(resolve => {
 //         resolveButtonClick = resolve;
