@@ -743,7 +743,7 @@ function waitButtonClick() {
 function shareOnTwitter() {
     // Twitterシェアボタンの内容を更新
     const twitterShareBtn = document.getElementById('twitterShareBtn');
-    const shareText = `#BUMP_Sorter \n https://yosh131.github.io/BUMP-Sorter/ \n @yoshi_b_o_c より`;
+    const shareText = `#BUMP_Sorter \n https://yosh131.github.io/BUMP-Sorter/`;
     const twitterURL = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}`;
     twitterShareBtn.href = twitterURL;
 
