@@ -4,29 +4,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Update History</title>
+    <meta name="description" content="BUMP-Sorterのアップデート履歴です。">
+    <title>アップデート履歴 | BUMP-Sorter</title>
     <link rel="stylesheet" href="./css/styles.css">
+    <script defer src="./js/update-history.js"></script>
 </head>
 
 <body>
-    <h1>Update History</h1>
+    <main class="update-history-page">
+        <p class="back-link"><a href="index.html">← BUMP-Sorterに戻る</a></p>
+        <header class="update-history-header">
+            <h1>アップデート履歴</h1>
+            <p>新しい更新から順に掲載しています。</p>
+        </header>
 
-    <ul class="update-list">
-        <li>2026-06-28: Iris収録曲、「I」、「Theme of Sphery Rendezvous」、隠しトラック「朝焼け」を追加。途中保存・戻る機能、比較の再利用、スマホ表示、安定性を改善</li>
-        <li>2023-08-23: 結果のページにハッシュタグを表示するように変更</li>
-        <li>2023-08-23: 曲リストの誤字を修正</li>
-        <li>2023-08-24: 隠しトラックに「大地」を追加</li>
-        <li>2023-08-25: ページ上部にWarning追加</li>
-        <li>2023-08-27: Update Historyのページを追加</li>
-        <li>2023-08-27: ソート結果でページの説明を非表示に変更</li>
-        <li>2023-08-27: ゼロ、グッドラック、ray、天体観測のバージョン違いを追加</li>
-        <li>2023-09-15: 結果に円グラフの表示を追加</li>
-        <li>2023-12-12: Sleep Walking Orchestraを追加</li>
-        <li>2024-02-09: Twitterにシェアボタンを追加、円グラフ削除</li>
-        <li>2024-06-10: 邂逅を追加</li>
+        <p id="update-history-status" class="status-message" role="status" aria-live="polite">
+            更新履歴を読み込んでいます。
+        </p>
+        <div id="update-history-list" class="update-history-list"></div>
 
-    </ul>
-    <p><a href="index.html">BUMP-Sorterに戻る</a></p>
+        <noscript>
+            <p class="status-message error">更新履歴の表示にはJavaScriptが必要です。</p>
+        </noscript>
+    </main>
 </body>
 
 </html>
