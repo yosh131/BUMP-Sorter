@@ -1,249 +1,292 @@
+:root {
+    color-scheme: light;
+    font-size: 16px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
 body {
-    /* font-family: "Helvetica Neue", Arial, sans-serif; */
-    font-family: "Helvetica Neue",
-        Arial,
-        "Hiragino Kaku Gothic ProN",
-        "Hiragino Sans",
-        Meiryo,
-        sans-serif;
+    font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
     text-align: center;
-    margin: 20px;
+    margin: clamp(0.75rem, 2vw, 1.25rem);
     background-color: #f2f2f2;
-    /* background-color: #e6e6e6; */
     color: #333;
+    line-height: 1.55;
 }
 
 #warning-message {
     background-color: #f2dede;
-    color: #a94442;
-    padding: 10px;
-    margin-bottom: 20px;
+    color: #8f3735;
+    padding: 0.65rem;
+    margin-bottom: 1.25rem;
     text-align: center;
 }
 
-
-header {
-    width: 100%;
-    padding: 30px 4% 10px;
-    background-color: #fff;
-    position: fixed;
-    top: 10px;
-    display: flex;
-    align-items: center;
+#warning-message p {
+    margin: 0;
 }
 
-.header h1 {
-    /* margin: 0;
-    padding: 0; */
-    font-size: 32px;
-    /* color: white; */
+.header {
+    width: 100%;
 }
 
 h1 {
-    margin-bottom: 30px;
-    font-size: 36px;
+    margin: 1.2rem 0 1.8rem;
+    font-size: clamp(2rem, 4vw, 2.4rem);
     font-weight: bold;
-    color: #000000;
+    color: #000;
 }
 
-#pageDiscription {
+h2 {
+    margin: 1.5rem 0 0.65rem;
+    font-size: clamp(1.25rem, 2.5vw, 1.6rem);
+}
+
+#pageDescription,
+#instruction,
+#instruction_2,
+#selectTopK {
     text-align: left;
-    margin-top: 40px;
     max-width: 1050px;
-    margin-left: 10px;
+    margin-left: auto;
     margin-right: auto;
 }
 
-#pageDescription h2 {
-    font-size: 28px;
-    font-weight: bold;
-    color: #007BFF;
-}
-
-#pageDescription p {
-    font-size: 18px;
-    color: #555;
+#pageDescription p,
+#instruction p,
+#instruction_2 p,
+#selectTopK p {
+    font-size: 1rem;
     line-height: 1.6;
 }
 
-
-#instruction {
+.status-message,
+.resume-panel {
+    max-width: 1050px;
+    margin: 1rem auto;
+    padding: 0.7rem 1rem;
+    border-left: 4px solid #49567f;
     text-align: left;
 }
 
-#instruction_2 {
-    text-align: left;
+.status-message.error {
+    border-left-color: #a94442;
+    color: #8f3735;
 }
 
-#selectTopK {
-    text-align: left;
+.resume-panel p {
+    margin: 0 0 0.5rem;
 }
 
-#numberOfTop {
-    font-size: 16px;
-    padding: 10px;
-    border: 1px solid #ccc;
+button {
+    margin: 0.3rem;
+    padding: 0.65rem 1.25rem;
+    font-size: 1rem;
+    background-color: #49567f;
+    color: #fff;
+    border: none;
     border-radius: 5px;
-    background-color: #f7f7f7;
+    cursor: pointer;
+}
+
+button:hover:not(:disabled) {
+    background-color: #344162;
+}
+
+button:focus-visible,
+select:focus-visible,
+input:focus-visible {
+    outline: 3px solid #ffcc00;
+    outline-offset: 2px;
+}
+
+button:disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
+}
+
+.secondary-button {
+    background-color: #646b78;
+}
+
+.selection-actions,
+.start-sort-action,
+.sort-actions {
+    text-align: center;
 }
 
 #songList {
-    text-align: center;
-    margin-bottom: 20px;
+    max-width: 1100px;
+    margin: 0 auto 1.25rem;
     display: flex;
     flex-wrap: wrap;
-    justify-content: left;
+    justify-content: flex-start;
+    gap: 0.6rem;
 }
 
-h3 {
-    margin-bottom: 10px;
-    font-size: 20px;
+.album-header {
+    flex-basis: 100%;
     width: 100%;
-    /* text-align: center; */
+    margin: 1.2rem 0 0.2rem;
+    padding: 0;
+    background: transparent;
+    color: #333;
+    border: 0;
+    border-radius: 0;
+    font-size: 1.25rem;
+    font-weight: bold;
+    text-align: left;
 }
 
+.album-header:hover:not(:disabled) {
+    background: transparent;
+    color: #0056b3;
+    text-decoration: underline;
+}
 
-label {
-    flex-basis: calc(30% - 20px);
-    padding: 10px;
+#songList label {
+    flex: 1 1 calc(33.333% - 0.6rem);
+    min-width: 15rem;
+    padding: 0.65rem;
     border: 1px solid #ccc;
     border-radius: 5px;
-    background-color: #ffffff;
+    background-color: #fff;
     cursor: pointer;
-    margin-bottom: 10px;
     text-align: left;
-    margin-right: 10px;
     color: #333;
     transition: background-color 0.15s ease;
 }
 
-label:last-child {
-    margin-right: 0;
+#songList label:hover {
+    background-color: #e9edf5;
 }
 
-label:hover {
-    background-color: #f0f0f0;
-}
-
-label:hover {
-    background-color: #f0f0f0;
-}
-
-button {
-    margin: 5px;
-    padding: 10px 20px;
-    font-size: 16px;
-    background-color: #49567F;
-    color: #FFF;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-#startpage {
-    margin: 5px;
-    padding: 10px 20px;
-    font-size: 16px;
-    background-color: #6682df;
-    color: #FFF;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: #0056b3;
-}
-
-#selectedSongs {
-    margin-top: 40px;
-}
-
-
-/* フローティングボタンのスタイル */
 .floating-button {
     position: fixed;
-    bottom: 20px;
-    right: 20px;
+    z-index: 2;
+    bottom: 1.25rem;
+    right: 1.25rem;
     background-color: #464646;
-    color: #FFF;
-    padding: 10px;
+    color: #fff;
+    padding: 0.65rem;
     border-radius: 5px;
-    cursor: pointer;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 5px rgb(0 0 0 / 12%);
 }
 
+#numberOfTop {
+    font-size: 1rem;
+    padding: 0.6rem;
+    border: 1px solid #aaa;
+    border-radius: 5px;
+    background-color: #fff;
+}
 
-/* 曲選択部分 */
+.top-k-label {
+    display: inline-block;
+    margin-right: 0.5rem;
+    font-weight: bold;
+}
+
+#sort-section,
+#result-section {
+    max-width: 1050px;
+    margin: 0 auto;
+}
+
+#progress {
+    margin-top: 1.2rem;
+}
+
+#progress-container {
+    width: min(45%, 35rem);
+    height: 1.25rem;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 1rem auto;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 0;
+    background-color: #4caf50;
+    transition: width 0.3s ease-in-out;
+}
 
 #song-container {
     display: flex;
-    /* justify-content: space-between; */
     justify-content: center;
+    gap: 2rem;
     max-width: 800px;
-    /* max-width: 400px; */
-    margin: 20px auto;
-    font-size: 20px;
+    margin: 1.5rem auto;
+    font-size: 1.2rem;
 }
 
 .song-box {
-    padding: 20px;
+    padding: 1.25rem;
     border: 1px solid #050d13;
     border-radius: 5px;
-    margin: 3%;
     text-align: center;
-    width: 35%;
-    background-color: #ffffff;
+    width: 42%;
+    min-width: 0;
+    background-color: #fff;
+    overflow-wrap: anywhere;
+}
+
+.choice-guidance {
+    display: flex;
+    justify-content: space-between;
+    max-width: 660px;
+    margin: 0 auto 0.2rem;
 }
 
 #choice-container {
     display: flex;
     justify-content: center;
-    margin-top: 20px;
+    gap: 0.75rem;
+    max-width: 660px;
+    margin: 0 auto;
 }
 
 .choice-button {
-    padding: 10px 20px;
-    margin: 0 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    width: 10%;
-    text-align: center;
+    flex: 1 1 0;
+    width: auto;
+    max-width: 6rem;
+    min-height: 2.75rem;
+    margin: 0;
+    padding: 0.6rem;
     background-color: #727e94;
-    transition: background-color 0.15s;
 }
 
-.choice-button:hover {
-    background-color: #ddd;
+.choice-button:hover:not(:disabled) {
+    background-color: #4f5e78;
 }
 
-.choice-text {
-    margin-top: 5px;
-    /* 適切な余白サイズに調整してください */
+.sort-actions {
+    margin-top: 1rem;
 }
-
-
-
-/* Result */
 
 .table-container {
     display: flex;
     justify-content: center;
+    overflow-x: auto;
 }
 
 table {
     border-collapse: collapse;
-    justify-content: center;
-    width: 70%;
-    margin-top: 20px;
+    width: min(90%, 900px);
+    margin-top: 1.25rem;
 }
 
 th,
 td {
-    border: 1px solid #dddddd;
+    border: 1px solid #ddd;
     text-align: left;
-    padding: 8px;
+    padding: 0.55rem;
+    overflow-wrap: anywhere;
 }
 
 th {
@@ -251,58 +294,115 @@ th {
     font-weight: bold;
 }
 
-/* Rankが1, 2, 3のセルのスタイル */
 .special-rank {
-    font-size: 24px;
+    font-size: 1.35rem;
     font-weight: bold;
     background-color: #ffcc00;
 }
 
 .special-title {
-    font-size: 24px;
+    font-size: 1.35rem;
     font-weight: bold;
     background-color: #f7eab9;
 }
 
 .special-album {
-    /* font-size: 20px;
-    font-weight: bold; */
     background-color: #f7eab9;
 }
 
-/* ソート進捗を表示 */
-
-#progress-bar {
-    display: block;
-    /* justify-content: center;
-    align-items: center; */
-    /* text-align: center; */
-    margin-left: auto;
-    margin-right: auto;
-}
-
-#progress-container {
-    width: 45%;
-    height: 20px;
-    background-color: #f0f0f0;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    overflow: hidden;
-    justify-content: center;
-    text-align: center;
-    margin: auto;
-}
-
-.progress-bar {
-    height: 100%;
-    width: 0;
-    justify-content: left;
-    background-color: #4caf50;
-    transition: width 0.3s ease-in-out;
-}
-
-
 .Twitter {
-    background-color: rgb(6, 164, 255);
+    background-color: rgb(6, 140, 220);
     color: #fff;
+}
+
+.update-list {
+    max-width: 900px;
+    margin: 0 auto;
+    padding-left: 1.5rem;
+    text-align: left;
+    font-size: 1rem;
+}
+
+@media (max-width: 700px) {
+    body {
+        text-align: left;
+    }
+
+    .header,
+    #warning-message,
+    #progress,
+    #result-section,
+    .selection-actions,
+    .start-sort-action,
+    .sort-actions {
+        text-align: center;
+    }
+
+    #songList {
+        gap: 0.5rem;
+    }
+
+    #songList label {
+        flex-basis: calc(50% - 0.5rem);
+        min-width: 0;
+        padding: 0.55rem;
+    }
+
+    .floating-button {
+        right: 0.75rem;
+        bottom: 0.75rem;
+        font-size: 0.85rem;
+    }
+
+    .floating-button .count-label {
+        display: none;
+    }
+
+    #progress-container {
+        width: 80%;
+    }
+
+    #song-container {
+        gap: 1rem;
+        margin: 1.2rem auto;
+    }
+
+    .song-box {
+        width: calc(50% - 0.5rem);
+        padding: 1rem 0.6rem;
+    }
+
+    .choice-guidance {
+        font-size: 0.9rem;
+    }
+
+    #choice-container {
+        gap: 0.4rem;
+    }
+
+    .choice-button {
+        min-width: 0;
+        min-height: 2.75rem;
+        padding: 0.55rem 0.2rem;
+    }
+
+    table {
+        width: 100%;
+        table-layout: fixed;
+    }
+
+    th:first-child,
+    td:first-child {
+        width: 15%;
+    }
+
+    th:last-child,
+    td:last-child {
+        width: 30%;
+    }
+
+    .special-rank,
+    .special-title {
+        font-size: 1.1rem;
+    }
 }

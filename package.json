@@ -1,0 +1,8 @@
+{
+  "name": "bump-sorter",
+  "private": true,
+  "scripts": {
+    "test": "node --test tests/*.test.js",
+    "update:songs": "node scripts/update-song-data.mjs"
+  }
+}
