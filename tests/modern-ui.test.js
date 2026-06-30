@@ -3,8 +3,8 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 
-const html = fs.readFileSync(path.join(__dirname, '..', 'modern.html'), 'utf8');
-const historyHtml = fs.readFileSync(path.join(__dirname, '..', 'modern-update-history.html'), 'utf8');
+const html = fs.readFileSync(path.join(__dirname, '..', 'index.html'), 'utf8');
+const historyHtml = fs.readFileSync(path.join(__dirname, '..', 'update_history.html'), 'utf8');
 
 test('modern UI preserves the DOM contract required by main.js', () => {
     const requiredIds = [
@@ -57,9 +57,9 @@ test('modern UI exposes landing, help, confirmation, and all four views', () => 
 });
 
 test('modern UI links to its matching history page and exposes comparison estimates', () => {
-    assert.match(html, /href=["']modern-update-history\.html["']/);
+    assert.match(html, /href=["']update_history\.html["']/);
     assert.match(html, /id=["']comparison-estimate["']/);
     assert.match(html, /作者 @yoshi_b_o_c/);
     assert.match(historyHtml, /class=["']modern-ui["']/);
-    assert.match(historyHtml, /href=["']modern\.html["']/);
+    assert.match(historyHtml, /href=["']index\.html["']/);
 });

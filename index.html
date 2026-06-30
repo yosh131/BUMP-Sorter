@@ -6,77 +6,87 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="BUMP OF CHICKENの楽曲を比較して、自分だけの好きな曲ランキングを作るソーターです。">
     <title>BUMP-Sorter</title>
-    <link rel="stylesheet" href="./css/styles.css">
-    <script defer src="./js/sort-core.js"></script>
-    <script defer src="./js/main.js"></script>
+    <link rel="stylesheet" href="./css/styles.css?v=20260630-6">
+    <link rel="stylesheet" href="./css/modern.css?v=20260701-1">
+    <script defer src="./js/sort-core.js?v=20260630-6"></script>
+    <script defer src="./js/main.js?v=20260701-1"></script>
+    <script defer src="./js/modern-ui.js?v=20260630-6"></script>
 </head>
 
-<body>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BLHKLX9SZ4"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-        gtag('config', 'G-BLHKLX9SZ4');
-    </script>
-
-    <div id="warning-message">
-        <p>ソート途中の状態は、このブラウザ内に自動保存されます。</p>
-    </div>
-
-    <header class="header">
-        <h1>BUMP-Sorter</h1>
+<body class="modern-ui" data-view="landing">
+    <header class="modern-site-header">
+        <a class="modern-brand" href="index.html" aria-label="BUMP-Sorterの最初の画面へ">
+            <span>BUMP-Sorter</span>
+        </a>
+        <button id="open-help" class="modern-help-button" type="button" aria-haspopup="dialog">
+            <span aria-hidden="true">?</span> ヘルプ
+        </button>
     </header>
 
-    <div id="pageDescription">
-        <h2>BUMP-Sorter について</h2>
-        <p>
-            BUMP OF CHICKEN の楽曲ソートを行うページです。<br>
-            隠しトラックを含めた楽曲が対象です。<br>
-            表示された楽曲のどちらが好きかを選んでいくと好きな曲ランキングが完成します。<br>
-            全楽曲を並び変えると非常に時間がかかるため、<br><strong>最初にある程度好きな曲を選択してもらい、その後にソートを開始する方式としています</strong>。
-            <br><br>
-            誤字脱字・バグ報告・ご要望などあれば制作者のTwitterまでお知らせください。
-            <br>(制作者Twitter: <a href="https://twitter.com/yoshi_b_o_c" target="_blank" rel="noopener noreferrer">@yoshi_b_o_c</a>,
-            最終更新:2026.06.28, <a href="update_history.html">アップデート履歴</a>)
-        </p>
-        <hr>
-    </div>
+    <div id="status-message" class="status-message modern-status" role="status" aria-live="polite" hidden></div>
 
-    <div id="status-message" class="status-message" role="status" aria-live="polite" hidden></div>
-
-    <div id="resume-panel" class="resume-panel" hidden>
-        <p>このブラウザにソート途中の状態があります。</p>
-        <button id="resume-session" type="button">途中から再開</button>
-        <button id="discard-session" class="secondary-button" type="button">最初からやり直す</button>
-    </div>
-
-    <main>
-        <section id="selection-section">
-            <div id="instruction">
-                <h2>①好きな曲を選んでください</h2>
-                <p>
-                    選択が終わったら画面最下部の完了ボタンを押してください。<br>
-                    何曲選んでもOKですが、多ければ多いほどソートに時間がかかります。<br>
-                    アルバム名を押すとアルバムの全曲を選択できます。右下の選択数を押すと設定へ移動できます。
+    <main class="modern-main">
+        <section id="landing-section" class="modern-landing">
+            <div id="pageDescription" class="modern-hero">
+                <h1>BUMP OF CHICKEN<br>楽曲ソート</h1>
+                <p class="modern-lead">
+                    好きな曲を選び、2曲ずつ比較してランキングを作れます。
                 </p>
+                <div class="modern-hero-actions">
+                    <button id="modern-start" class="modern-primary-action" type="button" disabled>
+                        Start <span aria-hidden="true">→</span>
+                    </button>
+                    <button id="open-help-secondary" class="modern-text-action" type="button">
+                        使い方を見る
+                    </button>
+                </div>
             </div>
 
-            <div class="selection-actions">
-                <button id="select-all" type="button"><b>全選択</b></button>
-                <button id="deselect-all" type="button"><b>全選択解除</b></button>
+            <div id="resume-panel" class="resume-panel modern-resume" hidden>
+                <p><strong>前回の続きがあります。</strong><br>保存した比較から再開できます。</p>
+                <div>
+                    <button id="resume-session" type="button">途中から再開</button>
+                    <button id="discard-session" class="secondary-button" type="button">最初からやり直す</button>
+                </div>
             </div>
 
-            <div id="songList" aria-live="polite"></div>
+            <ol class="modern-overview" aria-label="ランキング完成までの流れ">
+                <li><span>01</span><strong>曲を選ぶ</strong><small>好きな曲だけを対象にできます</small></li>
+                <li><span>02</span><strong>2曲を比べる</strong><small>5段階で好みを回答します</small></li>
+                <li><span>03</span><strong>結果を見る</strong><small>上位ランキングが完成します</small></li>
+            </ol>
+        </section>
 
-            <button id="selectedCountButton" class="floating-button" type="button">
-                <span class="count-label">選択された楽曲数: </span><span id="checked-count">0/0</span>
-            </button>
+        <section id="selection-section" class="modern-view" hidden>
+            <div id="instruction" class="modern-section-heading">
+                <p class="modern-step">STEP 1 / 2</p>
+                <h1>曲を選択</h1>
+                <p>ランキングに含める曲を選択してください。曲数が多いほど比較回数も増えます。</p>
+            </div>
 
-            <div id="selectTopK">
-                <h2>②上位何曲までをソートするか選択してください</h2>
-                <p>推奨は10〜30曲です。多ければ多いほどソートに時間がかかります。</p>
+            <div class="modern-selection-toolbar" aria-label="楽曲選択ツール">
+                <div class="selection-actions">
+                    <button id="select-all" type="button">全選択</button>
+                    <button id="deselect-all" class="secondary-button" type="button">選択解除</button>
+                </div>
+                <div class="modern-album-actions">
+                    <button id="expand-all-albums" class="modern-text-action" type="button">すべて開く</button>
+                    <button id="collapse-all-albums" class="modern-text-action" type="button">すべて閉じる</button>
+                </div>
+                <label class="modern-selected-filter">
+                    <input id="selected-only" type="checkbox">
+                    選択済みだけ表示
+                </label>
+            </div>
+
+            <div id="songList" class="modern-song-list" aria-live="polite"></div>
+
+            <div id="selectTopK" class="modern-sort-settings">
+                <div>
+                    <p class="modern-step">STEP 2 / 2</p>
+                    <h2>上位何曲まで並べますか？</h2>
+                    <p>おすすめは10〜30曲です。</p>
+                </div>
                 <label class="top-k-label" for="numberOfTop">上位曲数</label>
                 <select id="numberOfTop">
                     <option value="10">10</option>
@@ -93,54 +103,130 @@
                     <option value="100">100</option>
                 </select>
                 <div class="start-sort-action">
-                    <button id="save-selection" type="button"><b>選択を完了</b></button>
+                    <button id="save-selection" class="modern-primary-action" type="button">
+                        ソート内容を確認
+                    </button>
+                </div>
+                <div class="modern-estimate-summary">
+                    <p id="comparison-estimate">曲を選ぶと、比較回数の目安を表示します。</p>
+                    <details>
+                        <summary>曲数ごとの比較回数</summary>
+                        <div class="modern-estimate-table-wrap">
+                            <table class="modern-estimate-table">
+                                <thead><tr><th>選択曲数</th><th>上位10曲</th><th>上位20曲</th><th>上位30曲</th><th>全曲</th></tr></thead>
+                                <tbody>
+                                    <tr><td>10</td><td>約22回</td><td>約22回</td><td>約22回</td><td>約22回</td></tr>
+                                    <tr><td>20</td><td>約50回</td><td>約65回</td><td>約65回</td><td>約65回</td></tr>
+                                    <tr><td>30</td><td>約70回</td><td>約100回</td><td>約114回</td><td>約114回</td></tr>
+                                    <tr><td>50</td><td>約110回</td><td>約148回</td><td>約190回</td><td>約236回</td></tr>
+                                    <tr><td>100</td><td>約209回</td><td>約247回</td><td>約298回</td><td>約567回</td></tr>
+                                    <tr><td>150</td><td>約283回</td><td>約345回</td><td>約398回</td><td>約951回</td></tr>
+                                    <tr><td>200</td><td>約378回</td><td>約434回</td><td>約481回</td><td>約1,370回</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <small>同率なしで判断が一貫する条件を、各20通りのランダムな並びで測った平均値です。5段階の使い方や比較の再利用によって前後します。</small>
+                    </details>
                 </div>
             </div>
+
+            <button id="selectedCountButton" class="floating-button modern-selection-dock" type="button">
+                <span class="count-label">選択中 </span><strong id="checked-count">0/0</strong>
+                <span>設定へ <span aria-hidden="true">↓</span></span>
+            </button>
         </section>
 
-        <section id="sort-section" hidden>
-            <div id="instruction_2">
-                <h2>③どちらが好きか選んでください</h2>
-                <p>
-                    5段階で選択してください。3は引き分けです。<br>
-                    ※はじめの内は同じ曲が連続で表示されますが仕様です。<br>
-                    ※1、5を使わない方が結果が正確になりやすいです。
-                </p>
+        <section id="sort-section" class="modern-view modern-sort-view" hidden>
+            <div id="instruction_2" class="modern-section-heading modern-sort-heading">
+                <h1>曲を比較</h1>
+                <p>どちらの曲が好きかを5段階で選んでください。</p>
             </div>
             <p id="progress"></p>
             <div id="progress-container" aria-label="ソート進捗">
-                <div class="progress-bar" id="progressBar"></div>
+                <div class="progress-bar" id="progressBar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></div>
             </div>
             <div id="song-container"></div>
             <div class="choice-guidance" aria-hidden="true">
-                <span>← 左の方が好き</span>
-                <span>右の方が好き →</span>
+                <span>← 左の曲</span>
+                <span>右の曲 →</span>
             </div>
-            <div id="choice-container">
-                <button class="choice-button" data-choice="1" type="button" disabled>1</button>
-                <button class="choice-button" data-choice="2" type="button" disabled>2</button>
-                <button class="choice-button" data-choice="3" type="button" disabled>3</button>
-                <button class="choice-button" data-choice="4" type="button" disabled>4</button>
-                <button class="choice-button" data-choice="5" type="button" disabled>5</button>
+            <div id="choice-container" aria-label="好きな度合いを選択">
+                <button class="choice-button" data-choice="1" type="button" aria-label="左の曲がかなり好き" disabled>
+                    <span class="choice-number">1</span><span class="choice-label">強く左</span>
+                </button>
+                <button class="choice-button" data-choice="2" type="button" aria-label="左の曲が好き" disabled>
+                    <span class="choice-number">2</span><span class="choice-label">左</span>
+                </button>
+                <button class="choice-button" data-choice="3" type="button" aria-label="同じくらい好き" disabled>
+                    <span class="choice-number">3</span><span class="choice-label">同じ</span>
+                </button>
+                <button class="choice-button" data-choice="4" type="button" aria-label="右の曲が好き" disabled>
+                    <span class="choice-number">4</span><span class="choice-label">右</span>
+                </button>
+                <button class="choice-button" data-choice="5" type="button" aria-label="右の曲がかなり好き" disabled>
+                    <span class="choice-number">5</span><span class="choice-label">強く右</span>
+                </button>
             </div>
             <div class="sort-actions">
-                <button id="undo-choice" class="secondary-button" type="button" disabled>1つ戻る</button>
+                <button id="undo-choice" class="secondary-button" type="button" disabled>← 1つ戻る</button>
             </div>
         </section>
 
-        <section id="result-section" hidden>
+        <section id="result-section" class="modern-view modern-result-view" hidden>
             <div id="result-box"></div>
-            <div id="Twitter-share">
-                <button class="Twitter" id="twitterShareBtn" type="button">Twitter(X)でシェアする</button>
-            </div>
             <div class="table-container">
                 <table>
                     <thead id="table-head"></thead>
                     <tbody id="song-list"></tbody>
                 </table>
             </div>
+            <div id="Twitter-share" class="modern-result-actions">
+                <button id="saveResultImage" type="button">スクリーンショットを保存</button>
+                <button class="Twitter" id="twitterShareBtn" type="button">Xで結果をシェア</button>
+            </div>
         </section>
     </main>
+
+    <footer class="modern-footer">
+        <a href="update_history.html">アップデート履歴</a>
+        <a href="https://twitter.com/yoshi_b_o_c" target="_blank" rel="noopener noreferrer">作者 @yoshi_b_o_c</a>
+    </footer>
+
+    <dialog id="help-dialog" class="modern-dialog" aria-labelledby="help-title">
+        <div class="modern-dialog-header">
+            <div>
+                <p class="modern-step">HELP</p>
+                <h2 id="help-title">BUMP-Sorterの使い方</h2>
+            </div>
+            <button id="close-help" class="modern-dialog-close" type="button" aria-label="ヘルプを閉じる">×</button>
+        </div>
+        <ol class="modern-help-steps">
+            <li><strong>好きな曲を選ぶ</strong><span>アルバムを開き、ランキング候補だけを選択します。</span></li>
+            <li><strong>上位曲数を決める</strong><span>選択曲のうち、何位まで並べるかを指定します。</span></li>
+            <li><strong>2曲ずつ比べる</strong><span>左右どちらが好きかを5段階で回答します。同率も選べます。</span></li>
+            <li><strong>ランキングを見る</strong><span>回答をもとに上位ランキングを表示します。</span></li>
+        </ol>
+        <div class="modern-help-notes">
+            <p><strong>途中保存:</strong> 比較中の状態はブラウザに自動保存されます。</p>
+            <p><strong>やり直し:</strong> 比較画面では「1つ戻る」が使えます。</p>
+            <p><strong>同じ比較:</strong> 同じ曲の組み合わせには以前の回答を再利用します。</p>
+        </div>
+    </dialog>
+
+    <dialog id="sort-confirm-dialog" class="modern-dialog modern-confirm-dialog" aria-labelledby="confirm-title">
+        <div class="modern-dialog-header">
+            <div>
+                <p class="modern-step">READY?</p>
+                <h2 id="confirm-title">この内容で始めますか？</h2>
+            </div>
+        </div>
+        <p id="sort-confirm-summary"></p>
+        <p class="modern-confirm-note">比較中は自動保存され、いつでも1つ前の回答へ戻れます。</p>
+        <div class="modern-dialog-actions">
+            <button id="cancel-sort-confirm" class="secondary-button" type="button">選び直す</button>
+            <button id="confirm-sort-start" class="modern-primary-action" type="button">ソートを開始</button>
+        </div>
+    </dialog>
 </body>
 
 </html>
