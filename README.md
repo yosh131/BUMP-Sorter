@@ -10,7 +10,7 @@ ES Modulesを使わない静的サイトですが、CSVの取得があるためH
 python -m http.server 8000
 ```
 
-その後、`http://localhost:8000/`を開きます。
+その後、`http://localhost:8000/`を開きます。Modern UI版が標準画面として表示されます。
 
 ## テスト
 
