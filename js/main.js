@@ -10,6 +10,7 @@ let selectedSongs = [];
 let sortSession = null;
 let pendingComparison = null;
 let activeRunId = 0;
+let displayedProgress = 0;
 let elements = {};
 
 document.addEventListener('DOMContentLoaded', initialize);
@@ -62,6 +63,8 @@ function bindStaticEvents() {
     document.getElementById('resume-session').addEventListener('click', resumeSavedSession);
     document.getElementById('discard-session').addEventListener('click', discardSavedSession);
     document.getElementById('twitterShareBtn').addEventListener('click', shareOnTwitter);
+    const saveResultImageButton = document.getElementById('saveResultImage');
+    if (saveResultImageButton) saveResultImageButton.addEventListener('click', saveResultImage);
     elements.selectedCountButton.addEventListener('click', () => {
         document.getElementById('selectTopK').scrollIntoView({ behavior: 'smooth', block: 'center' });
     });
@@ -191,14 +194,17 @@ function setStatus(message, type = 'info') {
 }
 
 function createSortSession(selectedIds) {
+    const numberOfTop = Number(elements.numberOfTop.value);
     return {
         version: STORAGE_VERSION,
         status: 'sorting',
         catalogSize: songList.length,
         selectedIds,
-        numberOfTop: Number(elements.numberOfTop.value),
+        numberOfTop,
         seed: Date.now() >>> 0,
         answers: [],
+        estimatedComparisons: BumpSorterCore.estimateComparisonCount(selectedIds.length, numberOfTop),
+        maxProgress: 0,
     };
 }
 
@@ -208,6 +214,9 @@ function readSavedSession() {
         if (!value || value.version !== STORAGE_VERSION || value.status !== 'sorting') return null;
         if (!Array.isArray(value.selectedIds) || !Array.isArray(value.answers)) return null;
         if (!Number.isInteger(value.seed) || !Number.isFinite(value.numberOfTop)) return null;
+        value.estimatedComparisons = Number(value.estimatedComparisons)
+            || BumpSorterCore.estimateComparisonCount(value.selectedIds.length, value.numberOfTop);
+        value.maxProgress = Math.max(0, Math.min(0.98, Number(value.maxProgress) || 0));
         return value;
     } catch {
         localStorage.removeItem(STORAGE_KEY);
@@ -286,8 +295,9 @@ function enterSortMode() {
     elements.pageDescription.hidden = true;
     elements.resultSection.hidden = true;
     elements.sortSection.hidden = false;
-    elements.progressText.textContent = `${sortSession.selectedIds.length}曲中 Top ${Math.min(sortSession.numberOfTop, sortSession.selectedIds.length)} をソートします`;
-    updateProgressBar(0);
+    displayedProgress = 0;
+    updateProgressBar(sortSession.maxProgress || 0, true);
+    updateComparisonProgress();
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -378,6 +388,7 @@ function handleChoice(event) {
         rightId: String(pendingComparison.right.id),
         result,
     });
+    updateComparisonProgress();
     persistSortSession();
     resolvePendingComparison(result);
 }
@@ -385,6 +396,7 @@ function handleChoice(event) {
 function handleUndo() {
     if (!pendingComparison || !sortSession || sortSession.answers.length === 0) return;
     sortSession.answers.pop();
+    updateComparisonProgress();
     persistSortSession();
     resolvePendingComparison(RESTART_SORT);
 }
@@ -419,13 +431,33 @@ function displaySongs(left, right) {
     elements.songContainer.replaceChildren(createSongBox(left), createSongBox(right));
 }
 
-function updateSortProgress(items) {
-    const fixed = items.filter((song) => song.rank !== -1).length;
-    updateProgressBar(items.length ? Math.cbrt(fixed / items.length) : 0);
+function updateSortProgress() {
+    updateComparisonProgress();
 }
 
-function updateProgressBar(value) {
-    elements.progressBar.style.width = `${Math.max(0, Math.min(1, value)) * 100}%`;
+function updateComparisonProgress() {
+    if (!sortSession) return;
+
+    const estimated = Math.max(
+        1,
+        Number(sortSession.estimatedComparisons)
+            || BumpSorterCore.estimateComparisonCount(sortSession.selectedIds.length, sortSession.numberOfTop),
+    );
+    const answered = sortSession.answers.length;
+    const progress = Math.min(0.98, answered / estimated);
+    sortSession.estimatedComparisons = estimated;
+    sortSession.maxProgress = Math.max(Number(sortSession.maxProgress) || 0, progress);
+    updateProgressBar(sortSession.maxProgress);
+
+    const top = Math.min(sortSession.numberOfTop, sortSession.selectedIds.length);
+    elements.progressText.textContent = `${sortSession.selectedIds.length}曲から上位${top}曲をソートしています`;
+}
+
+function updateProgressBar(value, reset = false) {
+    const normalized = Math.max(0, Math.min(1, value));
+    displayedProgress = reset ? normalized : Math.max(displayedProgress, normalized);
+    elements.progressBar.style.width = `${displayedProgress * 100}%`;
+    elements.progressBar.setAttribute('aria-valuenow', String(Math.round(displayedProgress * 100)));
 }
 
 function showResult(items, requestedTop) {
@@ -435,7 +467,10 @@ function showResult(items, requestedTop) {
     elements.selectedCountButton.hidden = true;
     elements.sortSection.hidden = true;
     elements.resultSection.hidden = false;
-    elements.resultBox.innerHTML = '<h2>ソート結果</h2><p>ぜひ結果のスクリーンショットを以下のボタンからシェアしてください！</p>';
+    const modern = document.body.classList.contains('modern-ui');
+    elements.resultBox.innerHTML = modern
+        ? '<h1>ソート結果</h1>'
+        : '<h2>ソート結果</h2><p>ぜひ結果のスクリーンショットを以下のボタンからシェアしてください！</p>';
     elements.tableHead.innerHTML = '<tr><th>順位</th><th>曲名</th><th>Album</th></tr>';
     elements.tableBody.replaceChildren();
 
@@ -450,6 +485,7 @@ function showResult(items, requestedTop) {
         albumCell.textContent = song.album.replace(/["「」]/g, '');
 
         if (song.rank <= 3) {
+            row.classList.add(`result-rank-${song.rank}`);
             rankCell.classList.add('special-rank');
             titleCell.classList.add('special-title');
             albumCell.classList.add('special-album');
@@ -464,4 +500,140 @@ function shareOnTwitter() {
     const shareText = '#BUMP_Sorter\nhttps://yosh131.github.io/BUMP-Sorter/';
     const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}`;
     window.open(twitterUrl, '_blank', 'noopener,noreferrer');
+}
+
+async function saveResultImage(event) {
+    const button = event.currentTarget;
+    const originalText = button.textContent;
+    button.disabled = true;
+    button.textContent = '画像を作成中…';
+
+    try {
+        const canvas = createResultCanvas();
+        const filename = `bump-sorter-result-${new Date().toISOString().slice(0, 10)}.png`;
+
+        if ('showSaveFilePicker' in window) {
+            const fileHandle = await window.showSaveFilePicker({
+                suggestedName: filename,
+                types: [{ description: 'PNG画像', accept: { 'image/png': ['.png'] } }],
+            });
+            const blob = await canvasToPngBlob(canvas);
+            const writable = await fileHandle.createWritable();
+            await writable.write(blob);
+            await writable.close();
+        } else {
+            const blob = await canvasToPngBlob(canvas);
+            downloadBlob(blob, filename);
+        }
+    } catch (error) {
+        if (error && error.name === 'AbortError') return;
+        console.error('結果画像の保存に失敗しました', error);
+        setStatus('結果画像を保存できませんでした。ブラウザのダウンロード設定を確認してください。', 'error');
+    } finally {
+        button.disabled = false;
+        button.textContent = originalText;
+    }
+}
+
+function createResultCanvas() {
+    const rows = Array.from(elements.tableBody.querySelectorAll('tr')).map((row) => (
+        Array.from(row.cells).map((cell) => cell.textContent.trim())
+    ));
+    const width = 1200;
+    const margin = 72;
+    const titleHeight = 130;
+    const headerHeight = 58;
+    const rowHeight = 72;
+    const footerHeight = 90;
+    const height = titleHeight + headerHeight + (rows.length * rowHeight) + footerHeight;
+    const columns = [
+        { label: '順位', x: margin, width: 120 },
+        { label: '曲名', x: margin + 120, width: 600 },
+        { label: 'Album', x: margin + 720, width: width - (margin * 2) - 720 },
+    ];
+
+    const canvas = document.createElement('canvas');
+    canvas.width = width;
+    canvas.height = height;
+    const context = canvas.getContext('2d');
+
+    context.fillStyle = '#f5f4ef';
+    context.fillRect(0, 0, width, height);
+    context.textBaseline = 'middle';
+    context.fillStyle = '#171a21';
+    context.font = '700 46px "Hiragino Sans", Meiryo, sans-serif';
+    context.fillText('ソート結果', margin, 65);
+    context.font = '600 20px "Hiragino Sans", Meiryo, sans-serif';
+    context.fillStyle = '#626771';
+    context.fillText('BUMP-Sorter', width - margin - 145, 65);
+
+    const tableTop = titleHeight;
+    context.strokeStyle = '#171a21';
+    context.lineWidth = 2;
+    context.beginPath();
+    context.moveTo(margin, tableTop);
+    context.lineTo(width - margin, tableTop);
+    context.stroke();
+
+    context.fillStyle = '#171a21';
+    context.font = '700 24px "Hiragino Sans", Meiryo, sans-serif';
+    columns.forEach((column) => context.fillText(column.label, column.x + 10, tableTop + (headerHeight / 2)));
+
+    rows.forEach((cells, rowIndex) => {
+        const y = tableTop + headerHeight + (rowIndex * rowHeight);
+        const rank = Number(cells[0]);
+        const rankPalette = {
+            1: { background: '#f7edd0', text: '#8a6200' },
+            2: { background: '#eaedf0', text: '#5c6670' },
+            3: { background: '#f2dfd3', text: '#8a4f2a' },
+        }[rank];
+        if (rankPalette) {
+            context.fillStyle = rankPalette.background;
+            context.fillRect(margin, y, width - (margin * 2), rowHeight);
+        }
+        context.strokeStyle = '#d6d4cc';
+        context.lineWidth = 1;
+        context.beginPath();
+        context.moveTo(margin, y);
+        context.lineTo(width - margin, y);
+        context.stroke();
+
+        cells.forEach((text, cellIndex) => {
+            const column = columns[cellIndex];
+            context.fillStyle = cellIndex === 0 && rankPalette ? rankPalette.text : '#171a21';
+            context.font = `${cellIndex === 1 && rankPalette ? '700' : '500'} 25px "Hiragino Sans", Meiryo, sans-serif`;
+            context.fillText(text, column.x + 10, y + (rowHeight / 2), column.width - 24);
+        });
+    });
+
+    const bottomLine = tableTop + headerHeight + (rows.length * rowHeight);
+    context.strokeStyle = '#171a21';
+    context.lineWidth = 2;
+    context.beginPath();
+    context.moveTo(margin, bottomLine);
+    context.lineTo(width - margin, bottomLine);
+    context.stroke();
+
+    context.fillStyle = '#626771';
+    context.font = '500 18px "Hiragino Sans", Meiryo, sans-serif';
+    context.fillText('yosh131.github.io/BUMP-Sorter/', margin, height - 38);
+    return canvas;
+}
+
+function canvasToPngBlob(canvas) {
+    return new Promise((resolve, reject) => {
+        canvas.toBlob((blob) => {
+            if (blob) resolve(blob);
+            else reject(new Error('PNG画像を作成できませんでした。'));
+        }, 'image/png');
+    });
+}
+
+function downloadBlob(blob, filename) {
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = filename;
+    link.click();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
 }

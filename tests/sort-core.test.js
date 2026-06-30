@@ -2,10 +2,21 @@ const test = require('node:test');
 const assert = require('node:assert/strict');
 const {
     createSeededRandom,
+    estimateComparisonCount,
     findCachedComparison,
     getRandomIntegersInRange,
     sortTopK,
 } = require('../js/sort-core.js');
+
+test('comparison estimates match the simulation anchors and grow with scope', () => {
+    assert.equal(estimateComparisonCount(10, 10), 22);
+    assert.equal(estimateComparisonCount(100, 10), 209);
+    assert.equal(estimateComparisonCount(200, 20), 434);
+    assert.equal(estimateComparisonCount(200, 30), 481);
+    assert.equal(estimateComparisonCount(200, 200), 1370);
+    assert.ok(estimateComparisonCount(100, 30) > estimateComparisonCount(100, 10));
+    assert.ok(estimateComparisonCount(100, 30) < estimateComparisonCount(100, 100));
+});
 
 function compareByScore(left, right) {
     if (left.score === right.score) return 0;

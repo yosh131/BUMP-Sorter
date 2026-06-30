@@ -46,6 +46,49 @@
         }
     }
 
+    const comparisonEstimateAnchors = [
+        { size: 1, top10: 0, top20: 0, top30: 0, all: 0 },
+        { size: 10, top10: 22, top20: 22, top30: 22, all: 22 },
+        { size: 20, top10: 50, top20: 65, top30: 65, all: 65 },
+        { size: 30, top10: 70, top20: 100, top30: 114, all: 114 },
+        { size: 50, top10: 110, top20: 148, top30: 190, all: 236 },
+        { size: 100, top10: 209, top20: 247, top30: 298, all: 567 },
+        { size: 150, top10: 283, top20: 345, top30: 398, all: 951 },
+        { size: 200, top10: 378, top20: 434, top30: 481, all: 1370 },
+    ];
+
+    function interpolateEstimate(size, key) {
+        const clampedSize = Math.max(1, Math.min(200, size));
+        const upperIndex = comparisonEstimateAnchors.findIndex((anchor) => anchor.size >= clampedSize);
+        const upper = comparisonEstimateAnchors[Math.max(0, upperIndex)];
+        const lower = comparisonEstimateAnchors[Math.max(0, upperIndex - 1)];
+        if (upper.size === lower.size) return upper[key];
+
+        const ratio = (clampedSize - lower.size) / (upper.size - lower.size);
+        return lower[key] + ((upper[key] - lower[key]) * ratio);
+    }
+
+    function estimateComparisonCount(itemCount, topK = itemCount) {
+        const size = Math.max(0, Math.min(200, Math.round(Number(itemCount) || 0)));
+        if (size <= 1) return 0;
+
+        const limit = Math.max(1, Math.min(size, Math.round(Number(topK) || size)));
+        const estimates = [
+            { target: Math.min(10, size), value: interpolateEstimate(size, 'top10') },
+            { target: Math.min(20, size), value: interpolateEstimate(size, 'top20') },
+            { target: Math.min(30, size), value: interpolateEstimate(size, 'top30') },
+            { target: size, value: interpolateEstimate(size, 'all') },
+        ].filter((entry, index, entries) => index === 0 || entry.target !== entries[index - 1].target);
+
+        const upperIndex = estimates.findIndex((entry) => entry.target >= limit);
+        const upper = estimates[Math.max(0, upperIndex)];
+        const lower = estimates[Math.max(0, upperIndex - 1)];
+        if (upper.target === lower.target) return Math.max(1, Math.round(upper.value));
+
+        const ratio = (limit - lower.target) / (upper.target - lower.target);
+        return Math.max(1, Math.round(lower.value + ((upper.value - lower.value) * ratio)));
+    }
+
     function orientComparison(entry, leftId, rightId) {
         const left = String(leftId);
         const right = String(rightId);
@@ -162,6 +205,7 @@
 
     return {
         createSeededRandom,
+        estimateComparisonCount,
         findCachedComparison,
         getRandomIntegersInRange,
         orientComparison,

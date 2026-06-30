@@ -12,6 +12,8 @@ python -m http.server 8000
 
 その後、`http://localhost:8000/`を開きます。
 
+Modern UIのローカルプレビューは`http://localhost:8000/modern.html`で確認できます。従来版の`index.html`は変更しません。
+
 ## テスト
 
 Node.js 20以降で、ソートコアの境界条件とTop-Kの正しさを確認できます。

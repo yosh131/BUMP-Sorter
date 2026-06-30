@@ -1,0 +1,993 @@
+:root {
+    --modern-bg: #f5f4ef;
+    --modern-paper: #fff;
+    --modern-ink: #171a21;
+    --modern-muted: #626771;
+    --modern-line: #d6d4cc;
+    --modern-accent: #31569d;
+    --modern-accent-dark: #203d73;
+    --modern-focus: #f2be45;
+}
+
+.modern-ui {
+    min-height: 100vh;
+    margin: 0;
+    background: var(--modern-bg);
+    color: var(--modern-ink);
+    font-family: Inter, "Helvetica Neue", Arial, "Hiragino Sans", Meiryo, sans-serif;
+    text-align: left;
+}
+
+.modern-ui button,
+.modern-ui select,
+.modern-ui input {
+    font: inherit;
+}
+
+.modern-site-header {
+    position: sticky;
+    z-index: 20;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 4.5rem;
+    padding: 0.65rem clamp(1rem, 4vw, 3.5rem);
+    border-bottom: 1px solid rgb(23 26 33 / 14%);
+    background: rgb(245 244 239 / 92%);
+    backdrop-filter: blur(12px);
+}
+
+.modern-brand {
+    display: flex;
+    flex-direction: column;
+    color: var(--modern-ink);
+    line-height: 1.05;
+    text-decoration: none;
+}
+
+.modern-brand span {
+    font-size: 1.05rem;
+    font-weight: 600;
+    letter-spacing: 0.015em;
+}
+
+.modern-brand small {
+    margin-top: 0.25rem;
+    color: var(--modern-muted);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.modern-help-button {
+    display: inline-flex;
+    gap: 0.45rem;
+    align-items: center;
+    margin: 0;
+    padding: 0.45rem 0;
+    border: 0;
+    border-bottom: 0;
+    border-radius: 0;
+    background: transparent;
+    color: var(--modern-ink);
+    font-weight: 700;
+}
+
+.modern-help-button:hover:not(:disabled) {
+    background: transparent;
+    color: var(--modern-accent);
+}
+
+.modern-help-button span {
+    display: grid;
+    width: 1.35rem;
+    height: 1.35rem;
+    place-items: center;
+    border: 1px solid currentcolor;
+    border-radius: 50%;
+}
+
+#sort-confirm-summary {
+    line-height: 1.7;
+}
+
+.modern-confirm-estimate {
+    display: block;
+    margin-top: 0.5rem;
+    color: var(--modern-ink);
+    font-weight: 700;
+}
+
+.modern-main {
+    width: min(100%, 1180px);
+    margin: 0 auto;
+    padding: 0 clamp(1rem, 4vw, 3rem);
+}
+
+.modern-status {
+    width: min(calc(100% - 2rem), 1080px);
+    margin: 1rem auto 0;
+}
+
+.modern-landing {
+    padding: clamp(2.5rem, 8vh, 6.5rem) 0 3rem;
+}
+
+.modern-hero {
+    max-width: 880px;
+}
+
+.modern-eyebrow,
+.modern-step {
+    margin: 0 0 0.8rem;
+    color: var(--modern-accent);
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+}
+
+.modern-hero h1,
+.modern-section-heading h1 {
+    margin: 0;
+    color: var(--modern-ink);
+    font-size: clamp(1.7rem, 2.8vw, 2.25rem);
+    font-weight: 700;
+    letter-spacing: -0.035em;
+    line-height: 1.12;
+}
+
+.modern-section-heading h1 {
+    font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+}
+
+.modern-lead {
+    max-width: 42rem;
+    margin: 1.5rem 0 0;
+    color: var(--modern-muted);
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    line-height: 1.8;
+}
+
+.modern-hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem 1.5rem;
+    align-items: center;
+    margin-top: 2rem;
+}
+
+.modern-primary-action {
+    min-height: 3.25rem;
+    margin: 0;
+    padding: 0.8rem 1.6rem;
+    border: 1px solid var(--modern-accent);
+    border-radius: 2px;
+    background: var(--modern-accent);
+    color: #fff;
+    font-weight: 800;
+}
+
+.modern-primary-action:hover:not(:disabled) {
+    background: var(--modern-accent-dark);
+}
+
+.modern-text-action {
+    margin: 0;
+    padding: 0.4rem 0;
+    border: 0;
+    border-bottom: 1px solid currentcolor;
+    border-radius: 0;
+    background: transparent;
+    color: var(--modern-ink);
+}
+
+.modern-text-action:hover:not(:disabled) {
+    background: transparent;
+    color: var(--modern-accent);
+}
+
+.modern-overview {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin: clamp(3rem, 9vh, 7rem) 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.modern-overview li {
+    display: grid;
+    gap: 0.25rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--modern-line);
+}
+
+.modern-overview span,
+.modern-overview small {
+    color: var(--modern-muted);
+}
+
+.modern-overview strong {
+    font-size: 1.05rem;
+}
+
+.modern-resume {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    justify-content: space-between;
+    margin: 2rem 0 0;
+    border-left-color: var(--modern-accent);
+    background: rgb(255 255 255 / 50%);
+}
+
+.modern-resume[hidden] {
+    display: none;
+}
+
+.modern-view {
+    padding: clamp(2.5rem, 6vw, 5rem) 0 7rem;
+    animation: modern-view-in 240ms ease-out;
+}
+
+.modern-view[hidden] {
+    display: none;
+}
+
+.modern-section-heading {
+    max-width: 780px;
+    margin: 0 0 2.2rem;
+}
+
+.modern-section-heading > p:last-child {
+    margin-top: 1rem;
+    color: var(--modern-muted);
+}
+
+.modern-selection-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 1.5rem;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+    padding: 0.8rem 0;
+    border-top: 1px solid var(--modern-line);
+    border-bottom: 1px solid var(--modern-line);
+}
+
+.modern-selection-toolbar button {
+    margin: 0.15rem;
+}
+
+.modern-ui .selection-actions button,
+.modern-ui .sort-actions button {
+    padding: 0.55rem 0.8rem;
+    border: 1px solid var(--modern-line);
+    border-radius: 0;
+    background: transparent;
+    color: var(--modern-ink);
+    font-weight: 650;
+}
+
+.modern-ui .selection-actions button:hover:not(:disabled),
+.modern-ui .sort-actions button:hover:not(:disabled) {
+    border-color: var(--modern-accent);
+    background: transparent;
+    color: var(--modern-accent);
+}
+
+.modern-album-actions {
+    display: flex;
+    gap: 1rem;
+}
+
+.modern-selected-filter {
+    display: inline-flex;
+    gap: 0.55rem;
+    align-items: center;
+    font-weight: 700;
+}
+
+.modern-selected-filter input,
+.modern-album-songs input {
+    accent-color: var(--modern-accent);
+}
+
+.modern-ui #songList {
+    display: block;
+    max-width: none;
+    margin: 0;
+}
+
+.modern-album-section {
+    border-bottom: 1px solid var(--modern-line);
+}
+
+.modern-album-heading {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 1rem;
+    align-items: center;
+    min-height: 4.25rem;
+}
+
+.modern-album-toggle {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    gap: 0.8rem;
+    align-items: center;
+    width: 100%;
+    margin: 0;
+    padding: 1rem 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    color: var(--modern-ink);
+    font-size: clamp(1.05rem, 2vw, 1.25rem);
+    font-weight: 800;
+    text-align: left;
+}
+
+.modern-album-toggle:hover:not(:disabled) {
+    background: transparent;
+    color: var(--modern-accent);
+}
+
+.modern-album-count {
+    color: var(--modern-muted);
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.modern-album-marker {
+    width: 1.2rem;
+    color: var(--modern-accent);
+    text-align: center;
+}
+
+.modern-album-select {
+    margin: 0;
+    padding: 0.4rem 0;
+    border: 0;
+    border-bottom: 1px solid currentcolor;
+    border-radius: 0;
+    background: transparent;
+    color: var(--modern-accent);
+    font-size: 0.8rem;
+}
+
+.modern-album-select:hover:not(:disabled) {
+    background: transparent;
+    color: var(--modern-accent-dark);
+}
+
+.modern-album-songs {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0 1.25rem;
+    padding-bottom: 1rem;
+}
+
+.modern-album-songs[hidden] {
+    display: none;
+}
+
+.modern-ui #songList .modern-album-songs label {
+    display: flex;
+    gap: 0.45rem;
+    align-items: flex-start;
+    min-width: 0;
+    padding: 0.75rem 0.25rem;
+    border: 0;
+    border-bottom: 1px solid rgb(23 26 33 / 9%);
+    border-radius: 0;
+    background: transparent;
+    color: var(--modern-ink);
+}
+
+.modern-ui #songList .modern-album-songs label:hover {
+    background: rgb(49 86 157 / 6%);
+}
+
+.modern-ui #songList .modern-album-songs label[hidden] {
+    display: none;
+}
+
+.modern-album-songs input {
+    flex: 0 0 auto;
+    margin-top: 0.25rem;
+}
+
+.modern-sort-settings {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto auto auto;
+    gap: 1rem;
+    align-items: center;
+    max-width: none;
+    margin-top: 3rem;
+    padding: 1.5rem 0;
+    border-top: 1px solid var(--modern-ink);
+    border-bottom: 1px solid var(--modern-line);
+}
+
+.modern-sort-settings h2,
+.modern-sort-settings p {
+    margin: 0;
+}
+
+.modern-sort-settings .modern-step {
+    margin-bottom: 0.35rem;
+}
+
+.modern-sort-settings .top-k-label {
+    margin: 0;
+}
+
+.modern-estimate-summary {
+    grid-column: 1 / -1;
+    padding-top: 1rem;
+    border-top: 1px solid var(--modern-line);
+    color: var(--modern-muted);
+}
+
+.modern-estimate-summary > p {
+    color: var(--modern-ink);
+    font-weight: 650;
+}
+
+.modern-estimate-summary details {
+    margin-top: 0.65rem;
+}
+
+.modern-estimate-summary summary {
+    width: fit-content;
+    color: var(--modern-accent);
+    cursor: pointer;
+}
+
+.modern-estimate-table-wrap {
+    margin-top: 0.75rem;
+    overflow-x: auto;
+}
+
+.modern-ui .modern-estimate-table {
+    width: min(100%, 38rem);
+    margin: 0;
+    font-size: 0.82rem;
+}
+
+.modern-ui .modern-estimate-table th,
+.modern-ui .modern-estimate-table td {
+    padding: 0.4rem 0.6rem;
+    background: transparent;
+}
+
+.modern-estimate-summary small {
+    display: block;
+    max-width: 42rem;
+    margin-top: 0.65rem;
+    line-height: 1.6;
+}
+
+.modern-ui #numberOfTop {
+    border-radius: 2px;
+}
+
+.modern-selection-dock {
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    width: min(calc(100% - 2rem), 32rem);
+    padding: 0.8rem 1rem;
+    border: 1px solid var(--modern-ink);
+    border-radius: 2px;
+    background: var(--modern-ink);
+}
+
+.modern-ui[data-view="selection"] .modern-selection-dock {
+    display: flex;
+}
+
+.modern-sort-view,
+.modern-result-view {
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+.modern-sort-heading {
+    margin-right: auto;
+    margin-left: auto;
+    text-align: center;
+}
+
+.modern-ui #progress {
+    color: var(--modern-muted);
+    text-align: center;
+}
+
+.modern-ui #progress-container {
+    width: min(72%, 40rem);
+    height: 0.4rem;
+    border: 0;
+    border-radius: 0;
+    background: var(--modern-line);
+}
+
+.modern-ui .progress-bar {
+    background: var(--modern-accent);
+}
+
+.modern-ui #song-container {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0;
+    max-width: 900px;
+    margin: clamp(2rem, 7vh, 5rem) auto 1.5rem;
+    font-size: clamp(1.25rem, 4vw, 2rem);
+}
+
+.modern-ui .song-box {
+    display: grid;
+    width: auto;
+    min-height: 11rem;
+    place-items: center;
+    padding: 2rem 1.25rem;
+    border: 0;
+    border-top: 1px solid var(--modern-ink);
+    border-bottom: 1px solid var(--modern-ink);
+    border-radius: 0;
+    background: transparent;
+    font-weight: 750;
+}
+
+.modern-ui .song-box + .song-box {
+    border-left: 1px solid var(--modern-line);
+}
+
+.modern-ui .choice-guidance {
+    max-width: 900px;
+    color: var(--modern-muted);
+}
+
+.modern-ui #choice-container {
+    max-width: 900px;
+    gap: 0;
+    border: 1px solid var(--modern-ink);
+}
+
+.modern-ui .choice-button {
+    display: grid;
+    gap: 0.1rem;
+    width: auto;
+    max-width: none;
+    min-height: 3.8rem;
+    margin: 0;
+    border-right: 1px solid var(--modern-line);
+    border-radius: 0;
+    background: var(--modern-paper);
+    color: var(--modern-ink);
+}
+
+.modern-ui .choice-button:last-child {
+    border-right: 0;
+}
+
+.modern-ui .choice-button:hover:not(:disabled) {
+    background: var(--modern-accent);
+    color: #fff;
+}
+
+.choice-number {
+    font-weight: 800;
+}
+
+.choice-label {
+    font-size: 0.72rem;
+}
+
+.modern-ui .sort-actions {
+    margin-top: 1.25rem;
+}
+
+.modern-result-view #result-box {
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid var(--modern-ink);
+    text-align: left;
+}
+
+.modern-result-view #result-box h1 {
+    margin: 0;
+    font-size: clamp(1.7rem, 3vw, 2.25rem);
+    letter-spacing: -0.03em;
+}
+
+.modern-ui #Twitter-share {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    justify-content: flex-end;
+    margin-top: 2rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--modern-line);
+}
+
+.modern-ui #Twitter-share button {
+    margin: 0;
+    padding: 0.65rem 1rem;
+    border: 1px solid var(--modern-accent);
+    border-radius: 2px;
+    background: transparent;
+    color: var(--modern-accent);
+    font-weight: 700;
+}
+
+.modern-ui #Twitter-share button:hover:not(:disabled) {
+    background: var(--modern-accent);
+    color: #fff;
+}
+
+.modern-ui #saveResultImage {
+    background: var(--modern-accent);
+    color: #fff;
+}
+
+.modern-ui #saveResultImage:hover:not(:disabled) {
+    background: var(--modern-accent-dark);
+}
+
+.modern-ui table {
+    width: 100%;
+    background: transparent;
+}
+
+.modern-ui th,
+.modern-ui td {
+    padding: 0.8rem 0.65rem;
+    border-width: 0 0 1px;
+    border-color: var(--modern-line);
+    background: transparent;
+}
+
+.modern-ui .special-rank,
+.modern-ui .special-title,
+.modern-ui .special-album {
+    background: transparent;
+}
+
+.modern-ui .special-rank {
+    color: var(--modern-accent);
+    font-size: 1rem;
+}
+
+.modern-ui .special-title {
+    font-size: 1rem;
+    font-weight: 750;
+}
+
+.modern-ui .result-rank-1 td {
+    background: #f7edd0;
+}
+
+.modern-ui .result-rank-2 td {
+    background: #eaedf0;
+}
+
+.modern-ui .result-rank-3 td {
+    background: #f2dfd3;
+}
+
+.modern-ui .result-rank-1 .special-rank {
+    border-left: 4px solid #c49720;
+    color: #8a6200;
+}
+
+.modern-ui .result-rank-2 .special-rank {
+    border-left: 4px solid #929aa3;
+    color: #5c6670;
+}
+
+.modern-ui .result-rank-3 .special-rank {
+    border-left: 4px solid #b56f45;
+    color: #8a4f2a;
+}
+
+.modern-ui .table-container table {
+    margin-top: 0.5rem;
+}
+
+.modern-ui .table-container th:first-child,
+.modern-ui .table-container td:first-child {
+    width: 5rem;
+}
+
+.modern-footer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem 2rem;
+    justify-content: center;
+    padding: 2rem 1rem 6rem;
+    border-top: 1px solid var(--modern-line);
+    color: var(--modern-muted);
+    font-size: 0.85rem;
+}
+
+.modern-footer a {
+    color: inherit;
+}
+
+.modern-history-main {
+    width: min(calc(100% - 2rem), 900px);
+    margin: 0 auto;
+    padding: clamp(2.5rem, 6vw, 5rem) 0;
+}
+
+.modern-history-header {
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid var(--modern-ink);
+}
+
+.modern-history-header h1 {
+    margin: 0;
+    font-size: clamp(1.7rem, 3vw, 2.25rem);
+    letter-spacing: -0.03em;
+}
+
+.modern-history-header p {
+    margin: 0.6rem 0 0;
+    color: var(--modern-muted);
+}
+
+.modern-ui .update-history-list {
+    margin-top: 0;
+}
+
+.modern-ui .history-entry {
+    padding: 1.25rem 0;
+    border-color: var(--modern-line);
+}
+
+.modern-ui .history-date {
+    color: var(--modern-accent);
+    font-weight: 650;
+}
+
+.modern-dialog {
+    width: min(calc(100% - 2rem), 42rem);
+    max-height: min(85vh, 50rem);
+    padding: clamp(1.25rem, 4vw, 2rem);
+    overflow-y: auto;
+    border: 1px solid var(--modern-ink);
+    border-radius: 2px;
+    background: var(--modern-bg);
+    color: var(--modern-ink);
+}
+
+.modern-dialog::backdrop {
+    background: rgb(15 18 25 / 68%);
+    backdrop-filter: blur(3px);
+}
+
+.modern-dialog-header {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--modern-line);
+}
+
+.modern-dialog-header h2 {
+    margin: 0;
+}
+
+.modern-dialog-close {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    color: var(--modern-ink);
+    font-size: 2rem;
+    line-height: 1;
+}
+
+.modern-dialog-close:hover:not(:disabled) {
+    background: transparent;
+    color: var(--modern-accent);
+}
+
+.modern-help-steps {
+    display: grid;
+    gap: 0;
+    margin: 1rem 0 0;
+    padding: 0;
+    list-style: none;
+    counter-reset: help-step;
+}
+
+.modern-help-steps li {
+    display: grid;
+    grid-template-columns: minmax(8rem, 11rem) 1fr;
+    gap: 1rem;
+    padding: 0.9rem 0;
+    border-bottom: 1px solid var(--modern-line);
+    counter-increment: help-step;
+}
+
+.modern-help-steps strong::before {
+    content: "0" counter(help-step) "  ";
+    color: var(--modern-accent);
+}
+
+.modern-help-steps span,
+.modern-help-notes,
+.modern-confirm-note {
+    color: var(--modern-muted);
+}
+
+.modern-help-notes {
+    margin-top: 1.25rem;
+    font-size: 0.9rem;
+}
+
+.modern-help-notes p {
+    margin: 0.4rem 0;
+}
+
+.modern-dialog-actions {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: flex-end;
+    margin-top: 1.5rem;
+}
+
+@keyframes modern-view-in {
+    from {
+        opacity: 0;
+        transform: translateY(0.5rem);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 760px) {
+    .modern-site-header {
+        min-height: 3.9rem;
+    }
+
+    .modern-landing {
+        padding-top: 2.5rem;
+    }
+
+    .modern-hero h1 {
+        font-size: clamp(1.7rem, 6vw, 2rem);
+    }
+
+    .modern-overview {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        margin-top: 3.5rem;
+    }
+
+    .modern-resume {
+        display: block;
+    }
+
+    .modern-resume > div {
+        margin-top: 0.75rem;
+    }
+
+    .modern-selection-toolbar {
+        align-items: flex-start;
+    }
+
+    .modern-album-actions {
+        order: 3;
+        width: 100%;
+    }
+
+    .modern-album-heading {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 0;
+        padding: 0.55rem 0;
+    }
+
+    .modern-album-toggle {
+        padding-bottom: 0.45rem;
+    }
+
+    .modern-album-select {
+        justify-self: start;
+        margin-bottom: 0.4rem;
+    }
+
+    .modern-album-songs {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0 0.75rem;
+    }
+
+    .modern-ui #songList .modern-album-songs label {
+        padding: 0.7rem 0.15rem;
+        font-size: 0.9rem;
+    }
+
+    .modern-sort-settings {
+        grid-template-columns: minmax(0, 1fr) auto;
+    }
+
+    .modern-sort-settings > div:first-child,
+    .modern-sort-settings .start-sort-action {
+        grid-column: 1 / -1;
+    }
+
+    .modern-sort-settings .start-sort-action,
+    .modern-sort-settings .modern-primary-action {
+        width: 100%;
+    }
+
+    .modern-selection-dock {
+        right: 1rem;
+        bottom: 0.75rem;
+        left: 1rem;
+        font-size: 0.85rem;
+    }
+
+    .modern-ui .song-box {
+        min-height: 9rem;
+        padding: 1.2rem 0.55rem;
+    }
+
+    .modern-ui #choice-container {
+        width: 100%;
+    }
+
+    .modern-ui .choice-button {
+        min-height: 3.7rem;
+        padding: 0.45rem 0.1rem;
+    }
+
+    .modern-ui .modern-result-actions {
+        flex-wrap: nowrap;
+    }
+
+    .modern-ui .modern-result-actions button {
+        flex: 1 1 0;
+        min-width: 0;
+        padding-right: 0.45rem;
+        padding-left: 0.45rem;
+        font-size: 0.82rem;
+    }
+
+    .choice-label {
+        font-size: 0.64rem;
+    }
+
+    .modern-help-steps li {
+        grid-template-columns: 1fr;
+        gap: 0.25rem;
+    }
+
+    .modern-dialog-actions {
+        flex-direction: column-reverse;
+    }
+
+    .modern-dialog-actions button {
+        width: 100%;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .modern-view {
+        animation: none;
+    }
+
+    .modern-ui * {
+        scroll-behavior: auto !important;
+    }
+}
