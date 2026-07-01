@@ -14,7 +14,7 @@ async function loadUpdateHistory() {
     const list = document.getElementById('update-history-list');
 
     try {
-        const response = await fetch('./data/update-history.json?v=20260701');
+        const response = await fetch('./data/update-history.json?v=20260701-2');
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
         const entries = await response.json();

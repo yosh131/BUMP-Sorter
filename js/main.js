@@ -1,6 +1,7 @@
 'use strict';
 
 const STORAGE_KEY = 'bump-sorter-session-v2';
+const SELECTION_STORAGE_KEY = 'bump-sorter-selection-v1';
 const LEGACY_STORAGE_KEY = 'bump-sorter-session-v1';
 const STORAGE_VERSION = 2;
 const RESTART_SORT = Symbol('restart-sort');
@@ -11,6 +12,7 @@ let sortSession = null;
 let pendingComparison = null;
 let activeRunId = 0;
 let displayedProgress = 0;
+let selectionStorageReady = false;
 let elements = {};
 
 document.addEventListener('DOMContentLoaded', initialize);
@@ -48,6 +50,9 @@ async function initialize() {
         }
         songList = parseCsv(await response.text()).map((song) => ({ ...song, rank: -1 }));
         generateSongList();
+        restoreSelectionState();
+        selectionStorageReady = true;
+        persistSelectionState();
         setStatus('');
         offerSavedSession();
     } catch (error) {
@@ -70,6 +75,7 @@ function bindStaticEvents() {
     });
     elements.choiceButtons.forEach((button) => button.addEventListener('click', handleChoice));
     elements.undoChoice.addEventListener('click', handleUndo);
+    elements.numberOfTop.addEventListener('change', persistSelectionState);
 }
 
 function parseCsv(csv) {
@@ -171,6 +177,7 @@ function updateCheckedCount() {
     const checkedCount = getSongCheckboxes().filter((checkbox) => checkbox.checked).length;
     elements.checkedCount.textContent = `${checkedCount}/${songList.length}`;
     elements.selectedCountButton.setAttribute('aria-label', `選択された楽曲数 ${checkedCount}曲。ソート設定へ移動`);
+    persistSelectionState();
 }
 
 function setCheckedSongs(ids) {
@@ -185,6 +192,37 @@ function getSelectedIds() {
     return getSongCheckboxes()
         .filter((checkbox) => checkbox.checked)
         .map((checkbox) => checkbox.value);
+}
+
+function readSelectionState() {
+    try {
+        const value = JSON.parse(localStorage.getItem(SELECTION_STORAGE_KEY));
+        if (!value || !Array.isArray(value.selectedIds)) return null;
+        return value;
+    } catch {
+        localStorage.removeItem(SELECTION_STORAGE_KEY);
+        return null;
+    }
+}
+
+function restoreSelectionState() {
+    const saved = readSelectionState();
+    if (!saved) return;
+
+    const knownIds = new Set(songList.map((song) => String(song.id)));
+    setCheckedSongs(saved.selectedIds.filter((id) => knownIds.has(String(id))));
+    const topK = String(saved.numberOfTop || '');
+    if (Array.from(elements.numberOfTop.options).some((option) => option.value === topK)) {
+        elements.numberOfTop.value = topK;
+    }
+}
+
+function persistSelectionState() {
+    if (!selectionStorageReady) return;
+    localStorage.setItem(SELECTION_STORAGE_KEY, JSON.stringify({
+        selectedIds: getSelectedIds(),
+        numberOfTop: Number(elements.numberOfTop.value),
+    }));
 }
 
 function setStatus(message, type = 'info') {
@@ -233,15 +271,13 @@ function offerSavedSession() {
     if (!saved) return;
 
     const knownIds = new Set(songList.map((song) => String(song.id)));
-    if (saved.catalogSize !== songList.length || saved.selectedIds.some((id) => !knownIds.has(String(id)))) {
+    if (saved.selectedIds.some((id) => !knownIds.has(String(id)))) {
         localStorage.removeItem(STORAGE_KEY);
-        setStatus('保存されていた途中状態は楽曲データの更新前のものだったため破棄しました。');
+        setStatus('比較途中の対象曲が楽曲データから削除されていたため、途中状態を破棄しました。');
         return;
     }
 
     sortSession = saved;
-    setCheckedSongs(saved.selectedIds);
-    elements.numberOfTop.value = String(saved.numberOfTop);
     elements.resumePanel.hidden = false;
 }
 
@@ -249,8 +285,7 @@ function discardSavedSession() {
     sortSession = null;
     localStorage.removeItem(STORAGE_KEY);
     elements.resumePanel.hidden = true;
-    setAllCheckboxes(false);
-    setStatus('途中状態を破棄しました。');
+    setStatus('比較途中の状態を破棄しました。曲の選択状態は保持されています。');
 }
 
 function resumeSavedSession() {
