@@ -308,7 +308,7 @@
 
 .modern-album-heading {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-columns: minmax(0, 1fr);
     gap: 1rem;
     align-items: center;
     min-height: 4.25rem;
@@ -362,6 +362,12 @@
 .modern-album-select:hover:not(:disabled) {
     background: transparent;
     color: var(--modern-accent-dark);
+}
+
+.modern-album-inline-actions {
+    grid-column: 1 / -1;
+    padding: 0.35rem 0 0.6rem;
+    border-bottom: 1px solid rgb(23 26 33 / 9%);
 }
 
 .modern-album-songs {
@@ -900,11 +906,6 @@
 
     .modern-album-toggle {
         padding-bottom: 0.45rem;
-    }
-
-    .modern-album-select {
-        justify-self: start;
-        margin-bottom: 0.4rem;
     }
 
     .modern-album-songs {

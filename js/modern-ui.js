@@ -24,7 +24,6 @@
         };
 
         const showSelection = () => {
-            if (!resumePanel.hidden && typeof discardSavedSession === 'function') discardSavedSession();
             applySelectedFilter();
             landing.hidden = true;
             selection.hidden = false;
@@ -107,16 +106,21 @@
                     child.className = 'modern-album-select';
                     child.textContent = 'まとめて選択/解除';
 
+                    const inlineActions = document.createElement('div');
+                    inlineActions.className = 'modern-album-inline-actions';
+                    inlineActions.appendChild(child);
+
                     const albumSongs = document.createElement('div');
                     albumSongs.className = 'modern-album-songs';
                     albumSongs.id = `modern-album-${albumIndex}`;
                     albumSongs.hidden = albumIndex !== 1;
+                    albumSongs.appendChild(inlineActions);
                     toggle.setAttribute('aria-controls', albumSongs.id);
                     marker.textContent = albumIndex === 1 ? '−' : '＋';
                     toggle.addEventListener('click', () => setAlbumExpanded(albumSection, albumSongs.hidden));
                     child.addEventListener('click', applySelectedFilter);
 
-                    heading.append(toggle, child);
+                    heading.appendChild(toggle);
                     albumSection.append(heading, albumSongs);
                     fragment.appendChild(albumSection);
                     section = albumSection;
